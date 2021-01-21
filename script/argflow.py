@@ -37,7 +37,7 @@ if static_args.model in ['human','yeast','general']:
     pass
 else:
     error_report = 1
-print ('Welcome to use our sortware')
+print ('Welcome to use our software')
 def read_file(file_path):
     namespace = {}
     with open(file_path, 'r') as r:
