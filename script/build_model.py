@@ -4,7 +4,6 @@ Created on Sat Dec  7 21:24:08 2019
 
 @author: zju
 """
-
 import os
 from math import log
 import numpy as np
@@ -15,22 +14,31 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.optimizers import Adam
 from sklearn.model_selection import KFold, ShuffleSplit
 from build_my_layer import MyMaskCompute, MySpatialDropout1D
-from utility import *
+from utility import random_arr, array_split
+from input_preprocess import preprocess
+import warnings
+import argparse
 
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+warnings.filterwarnings("ignore")
 
-  
-x_train_1 = np.load('data/sa/double_arr_1_b.npy')
-x_train_2 = np.load('data/sa/double_arr_2_b.npy')
-y_train = np.load('data/sa/double_arr_3_b.npy')
 
-s_1 = np.load('data/sa/double_arr_1_s.npy')
-s_2 = np.load('data/sa/double_arr_2_s.npy')
-s_y = np.load('data/sa/double_arr_3_s.npy')
+parser = argparse.ArgumentParser(description='train DeepTrio')
+parser.add_argument('-p', '--ppi', required=True, type=str, help='configuration of the PPI file, which contains the protein 1 id, protein 2 id and the class they belong to, and they are splited by table key')
+parser.add_argument('-d', '--database', required=True, type=str, help='configuration of the protein sequence database, which contains the protein id and its sequence, and they are splited by table key')
+
+static_args = parser.parse_args()
+file_1_path = static_args.protein1
+file_2_path = static_args.protein2
+
+x_train_1, x_train_2, y_train, single_1, single_2, single_y = preprocess(file_1_path, file_2_path)
 
 random_arr(x_train_1)
 random_arr(x_train_2)
 random_arr(y_train)
+
+x_1, x_2, y_train, v_1, v_2, v_y = array_split(10, x_train_1, x_train_2, y_train, single_1, single_2, single_y)
 
 def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.14, strides_rate_1=0.2, kernel_rate_2=0.1, strides_rate_2=0.3, filter_num_1=125, filter_num_2=175, con_drop=0.05, fn_drop_1=0.2, fn_drop_2=0.1, node_num=128, opti_switch=0):
 
@@ -109,7 +117,7 @@ def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.14, strides_rate_1=0.2, kerne
     record_min = 0
 
     for n in range(100):
-        history_model = model.fit([x_a_1[0],x_a_2[0]], y_a[0], batch_size=256, epochs=1, shuffle=True, validation_data=([x_t_1[0],x_t_2[0]], y_t_s[0]))
+        history_model = model.fit([x_1[0],x_2[0]], y_train[0], batch_size=256, epochs=1, shuffle=True, validation_data=([v_1[0],v_2[0]], v_y[0]))
         if history_model.history['val_accuracy'][0] > record_min:
             record_min = history_model.history['val_accuracy'][0]
             model.save('DeepTriplet_search_' + str(yy) + '.h5') ##########
@@ -223,7 +231,7 @@ import GPy
 import GPyOpt
 
 opt_model = GPyOpt.methods.BayesianOptimization(f=f, domain=bounds, initial_design_numdata=10)
-opt_model.run_optimization(max_iter=50)
+opt_model.run_optimization(max_iter=10)
 
 with open('search_log.txt', 'a') as log_text:
     log_text.write('result: \n')
