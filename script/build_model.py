@@ -4,40 +4,21 @@ Created on Sat Dec  7 21:24:08 2019
 
 @author: zju
 """
+
+import os
+from math import log
+import numpy as np
 import tensorflow as tf
 from tensorflow.keras.layers import *
 from tensorflow.keras import Model
 from tensorflow.keras import backend as K
 from tensorflow.keras.optimizers import Adam
-import numpy as np
-import os
-from math import log
+from sklearn.model_selection import KFold, ShuffleSplit
+from build_my_layer import MyMaskCompute, MySpatialDropout1D
+from utility import *
 
-class MyMaskCompute(Layer):
-    
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-            
-    def call(self, inputs, mask):
-        #mask = inputs._keras_mask
-        mask = K.cast(mask, K.floatx())
-        mask = tf.expand_dims(mask,-1)
-        x = inputs * mask
-        return x
-    
-    def compute_mask(self, inputs, mask=None):
-        return None
 
-class MySpatialDropout1D(Dropout):
 
-    def __init__(self, rate, **kwargs):
-        super(MySpatialDropout1D, self).__init__(rate, **kwargs)
-        self.input_spec = InputSpec(ndim=3)
-
-    def _get_noise_shape(self, inputs):
-        input_shape = K.shape(inputs)
-        noise_shape = (input_shape[0], input_shape[1], 1)
-        return noise_shape
   
 x_train_1 = np.load('data/sa/double_arr_1_b.npy')
 x_train_2 = np.load('data/sa/double_arr_2_b.npy')
@@ -47,40 +28,9 @@ s_1 = np.load('data/sa/double_arr_1_s.npy')
 s_2 = np.load('data/sa/double_arr_2_s.npy')
 s_y = np.load('data/sa/double_arr_3_s.npy')
 
-def random_arr(arr):
-    np.random.seed(5)
-    np.random.shuffle(arr)
-    np.random.seed(55)
-    np.random.shuffle(arr)
-
 random_arr(x_train_1)
 random_arr(x_train_2)
 random_arr(y_train)
-
-from sklearn.model_selection import KFold, ShuffleSplit
-
-x_a_1 = {}
-x_t_1 = {}
-x_a_2 = {}
-x_t_2 = {}
-y_a = {}
-y_t_s = {}
-kfnum = 0
-spl_num = 5
-kf = KFold(n_splits=spl_num, shuffle=True, random_state=5)
-for train_index, test_index in kf.split(y_train):
-    x_a_1[kfnum], x_t_1[kfnum] = x_train_1[train_index], x_train_1[test_index]
-    x_a_2[kfnum], x_t_2[kfnum] = x_train_2[train_index], x_train_2[test_index]
-    y_a[kfnum], y_t_s[kfnum] = y_train[train_index], y_train[test_index]
-    kfnum += 1
-
-for ks in range(spl_num):
-    x_a_1[ks] = np.concatenate([s_1, x_a_1[ks]], 0)
-    x_a_2[ks] = np.concatenate([s_2, x_a_2[ks]], 0)
-    y_a[ks] = np.concatenate([s_y, y_a[ks]], 0)
-    random_arr(x_a_1[ks])
-    random_arr(x_a_2[ks])
-    random_arr(y_a[ks])
 
 def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.14, strides_rate_1=0.2, kernel_rate_2=0.1, strides_rate_2=0.3, filter_num_1=125, filter_num_2=175, con_drop=0.05, fn_drop_1=0.2, fn_drop_2=0.1, node_num=128, opti_switch=0):
 
@@ -96,9 +46,6 @@ def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.14, strides_rate_1=0.2, kerne
     main_input_a = Input(shape = (1500,), name = 'input_a')
     main_input_b = Input(shape = (1500,), name = 'input_b')
 
-    # tf.dtypes.cast(main_input_a, tf.int32)
-    # tf.dtypes.cast(main_input_b, tf.int32)
-
     embedding_layer = Embedding(25,int(em_dim),mask_zero=True)
     embedded_a = embedding_layer(main_input_a)
     embedded_b = embedding_layer(main_input_b)
@@ -110,9 +57,6 @@ def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.14, strides_rate_1=0.2, kerne
 
     dropped_1 = drop_layer(masked_a)
     dropped_2 = drop_layer(masked_b)
-
-    # dropped_1 = masked_a # noting!!!!!!!!!!!!!!!
-    # dropped_2 = masked_b # noting!!!!!!!!!!!!!!!
 
     tensor = []
 
@@ -234,7 +178,7 @@ def search_param(x):
 
     return opt
 
-yy = 35
+yy = 0
 
 def f(x):
     
