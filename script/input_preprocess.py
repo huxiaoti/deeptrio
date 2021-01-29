@@ -16,6 +16,8 @@ def preprocess(file_1, file_2):
         line = r.readline()
         while line != '':
             protein_1 = line.strip().split('\t')[0]
+            if len(line.strip().split('\t')) != 3:
+                raise Exception('The format of ppi file is incorrect')
             protein_1_list.append(protein_1)
             protein_2 = line.strip().split('\t')[1]
             protein_2_list.append(protein_2)
@@ -32,28 +34,30 @@ def preprocess(file_1, file_2):
         line = r2.readline()
         while line != '':
             name = line.split('\t')[0]
+            if len(line.split('\t')) != 2:
+                raise Exception('The format of database is incorrect')
             seq = line.strip().split('\t')[1]
             protein_seq[name] = seq
             line = r2.readline()
             
-    
+    amino_acid ={'A':1,'C':2,'D':3,'E':4,'F':5,
+                'G':6,'H':7,'I':8,'K':9,'L':10,
+                'M':11,'N':12,'P':13,'Q':14,'R':15,'S':16,
+                'T':17,'V':18,'W':19,'Y':20,'U':21,'X':22,'B':0}
     #with open('single_protein_2021.txt', 'r') as f:
+
+    k1 = []
+    k2 = []
+    k3 = []
+
     for key in list(protein_pairs.keys()):
-        amino_acid ={'A':1,'C':2,'D':3,'E':4,'F':5,
-                     'G':6,'H':7,'I':8,'K':9,'L':10,
-                     'M':11,'N':12,'P':13,'Q':14,'R':15,'S':16,
-                     'T':17,'V':18,'W':19,'Y':20,'U':21,'X':22,'B':0}
-    
-        #line = f.readline()
+
         name_1 = key.split('\t')[0]
         name_2 = key.split('\t')[1]
         label = protein_pairs[key]
         seq_1 = protein_seq[name_1]
         seq_2 = protein_seq[name_2]
-        k1 = []
-        k2 = []
-        k3 = []
-    
+
         a1 = np.zeros([1500,], dtype = int)
         a2 = np.zeros([1500,], dtype = int)
         a3 = np.zeros([3,], dtype = float)
@@ -85,22 +89,18 @@ def preprocess(file_1, file_2):
     m1 = np.stack(k1, axis=0)
     m2 = np.stack(k2, axis=0)
     m3 = np.stack(k3, axis=0)
-    
+
+    k1 = []
+    k2 = []
+    k3 = []
+
     for key in all_proteins:
-        amino_acid ={'A':1,'C':2,'D':3,'E':4,'F':5,
-                     'G':6,'H':7,'I':8,'K':9,'L':10,
-                     'M':11,'N':12,'P':13,'Q':14,'R':15,'S':16,
-                     'T':17,'V':18,'W':19,'Y':20,'U':21,'X':22,'B':0}
-    
-        #line = f.readline()
+
         name_1 = key
         name_2 = key
         label = 2
         seq_1 = protein_seq[key]
         seq_2 = 'B'
-        k1 = []
-        k2 = []
-        k3 = []
     
         a1 = np.zeros([1500,], dtype = int)
         a2 = np.zeros([1500,], dtype = int)
