@@ -27,10 +27,12 @@ warnings.filterwarnings("ignore")
 parser = argparse.ArgumentParser(description='train DeepTrio')
 parser.add_argument('-p', '--ppi', required=True, type=str, help='configuration of the PPI file, which contains the protein 1 id, protein 2 id and the class they belong to, and they are splited by table key')
 parser.add_argument('-d', '--database', required=True, type=str, help='configuration of the protein sequence database, which contains the protein id and its sequence, and they are splited by table key')
+parser.add_argument('-e', '--epoch', default='100', type=str, help='the maximum number of epochs')
 
 static_args = parser.parse_args()
 file_1_path = static_args.ppi
 file_2_path = static_args.database
+epoch_number = int(static_args.epoch)
 
 print('\nWelcome to use our tool')
 print('\nVersion: 1.0.0')
@@ -124,7 +126,7 @@ def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.14, strides_rate_1=0.2, kerne
 
     record_min = 0
 
-    for n in range(3):
+    for n in range(epoch_number):
         history_model = model.fit([x_1[0],x_2[0]], y_train[0], batch_size=256, epochs=1, shuffle=True, validation_data=([v_1[0],v_2[0]], v_y[0]))
         if history_model.history['val_accuracy'][0] > record_min:
             record_min = history_model.history['val_accuracy'][0]
@@ -238,8 +240,8 @@ def f(x):
 import GPy
 import GPyOpt
 
-opt_model = GPyOpt.methods.BayesianOptimization(f=f, domain=bounds, initial_design_numdata=3)
-opt_model.run_optimization(max_iter=3)
+opt_model = GPyOpt.methods.BayesianOptimization(f=f, domain=bounds, initial_design_numdata=10)
+opt_model.run_optimization(max_iter=50)
 
 with open('search_log.txt', 'a') as log_text:
     log_text.write('result: \n')

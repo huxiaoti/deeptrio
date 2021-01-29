@@ -12,31 +12,26 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 warnings.filterwarnings("ignore")
 
 parser = argparse.ArgumentParser(description='run DeepTrio for PPI prediction')
-parser.add_argument('-p1', '--protein1', required=True, type=str, help='configuration of the first protein group in fasta format with path, which can contain multiply sequences')
-parser.add_argument('-p2', '--protein2', required=True, type=str, help='configuration of the second protein group in fasta format with path, whcih can contain multiply sequences')
-parser.add_argument('-m', '--model', default='human', required=True, type=str, help='configuration of the deep learning model: human, yeast or general')
+parser.add_argument('-p1', '--protein1', required=True, type=str, help='configuration of the first protein group in fasta format with its path, which can contain multiply sequences')
+parser.add_argument('-p2', '--protein2', required=True, type=str, help='configuration of the second protein group in fasta format with its path, whcih can contain multiply sequences')
+parser.add_argument('-m', '--model',  required=True, type=str, help='configuration of the DeepTrio model with its path')
 parser.add_argument('-o', '--output', default='default', type=str, help='configuration of the name of output without a filename extension')
 
 static_args = parser.parse_args()
 
 error_report = 0
 
-file_1_path = './' + static_args.protein1
-file_2_path = './' + static_args.protein2
+file_1_path = static_args.protein1
+file_2_path = static_args.protein2
 file_output = static_args.output + '.txt'
 
-if static_args.model == 'human':
-    model_path = './DeepTriplet_acc_full.h5'
-elif static_args.model == 'yeast':
-    model_path = './DeepTriplet_acc_full.h5'
-else:
-    model_path = './DeepTriplet_acc_full.h5'
+model_path = static_args.model
 
 
-if static_args.model in ['human','yeast','general']:
-    pass
-else:
-    error_report = 1
+# if static_args.model in ['human','yeast','general']:
+#     pass
+# else:
+#     error_report = 1
 print ('Welcome to use our software')
 def read_file(file_path):
     namespace = {}
@@ -138,45 +133,45 @@ model = tf.keras.models.load_model(model_path, custom_objects={'MyMaskCompute':M
 
 predictions_test = model.predict([group_arr_1, group_arr_2])
 
-print(predictions_test)
-
-# with open(file_output, 'w') as w:
-#     for n1 in range(len(predictions_test)):
-#         w.write(group_name[n1])
-#         for n2 in range(len(predictions_test[n1])):
-#             w.write('\t' + str(predictions_test[n1][n2]))
-#         w.write('\n')
-
-# output_data = {}
-# for n in range(len(predictions_test)):
-#     output_data[group_name[n]] = {}
-#     output_data[group_name[n]]['model'] = static_args.model
-#     output_data[group_name[n]]['probability'] = str(predictions_test[n][0])
-#     if predictions_test[n][0] >= 0.5:
-#         output_data[group_name[n]]['result'] = 'binding'
-#     elif predictions_test[n][2] >= 0.5:
-#         output_data[group_name[n]]['result'] = 'single-protein'
-#     else:
-#         output_data[group_name[n]]['result'] = 'non-binding'
-
-output_data = []
-tmp = []
-for n in range(len(predictions_test)):
-    protein_names = group_name[n].split('\t')
-    tmp.append(protein_names[0])
-    tmp.append(protein_names[1])
-    tmp.append(static_args.model)
-    tmp.append(str(predictions_test[n][0]))
-    if predictions_test[n][0] >= 0.5:
-        tmp.append('binding')
-    elif predictions_test[n][2] >= 0.5:
-        tmp.append('single-protein')
-    else:
-        tmp.append('non-binding')
-    output_data.append(tmp)
-    tmp = []
+# print(predictions_test)
 
 with open(file_output, 'w') as w:
-    json.dump(output_data, w)
+    for n1 in range(len(predictions_test)):
+        w.write(group_name[n1])
+        for n2 in range(len(predictions_test[n1])):
+            w.write('\t' + str(predictions_test[n1][n2]))
+        w.write('\n')
+
+output_data = {}
+for n in range(len(predictions_test)):
+    output_data[group_name[n]] = {}
+    output_data[group_name[n]]['model'] = static_args.model
+    output_data[group_name[n]]['probability'] = str(predictions_test[n][0])
+    if predictions_test[n][0] >= 0.5:
+        output_data[group_name[n]]['result'] = 'binding'
+    elif predictions_test[n][2] >= 0.5:
+        output_data[group_name[n]]['result'] = 'single-protein'
+    else:
+        output_data[group_name[n]]['result'] = 'non-binding'
+
+# output_data = []
+# tmp = []
+# for n in range(len(predictions_test)):
+#     protein_names = group_name[n].split('\t')
+#     tmp.append(protein_names[0])
+#     tmp.append(protein_names[1])
+#     tmp.append(static_args.model)
+#     tmp.append(str(predictions_test[n][0]))
+#     if predictions_test[n][0] >= 0.5:
+#         tmp.append('binding')
+#     elif predictions_test[n][2] >= 0.5:
+#         tmp.append('single-protein')
+#     else:
+#         tmp.append('non-binding')
+#     output_data.append(tmp)
+#     tmp = []
+
+# with open(file_output, 'w') as w:
+#     json.dump(output_data, w)
 
 print('Thank you for using')
