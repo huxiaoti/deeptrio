@@ -2,6 +2,7 @@ import tensorflow as tf
 from tensorflow.keras.layers import *
 from tensorflow.keras import Model
 from tensorflow.keras import backend as K
+import os
 import numpy as np
 import argparse
 import pandas as pd
@@ -13,13 +14,15 @@ from matplotlib.ticker import MultipleLocator, FormatStrFormatter, AutoMinorLoca
 from matplotlib.colors import ListedColormap,LinearSegmentedColormap
 from matplotlib import rcParams
 import matplotlib
+import warnings
 
-
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+warnings.filterwarnings("ignore")
 
 parser = argparse.ArgumentParser(description='run DeepTrio for visualizarion')
 parser.add_argument('-p1', '--protein1', required=True, type=str, help='configuration of the first protein in fasta format with path')
 parser.add_argument('-p2', '--protein2', required=True, type=str, help='configuration of the second protein in fasta format with path')
-parser.add_argument('-m', '--model', default='human', required=True, type=str, help='configuration of the deep learning model: human, yeast or general')
+parser.add_argument('-m', '--model',  required=True, type=str, help='configuration of the DeepTrio model with its path')
 # parser.add_argument('-o', '--output', default='default', type=str, help='configuration of the name of output without a filename extension')
 
 static_args = parser.parse_args()
@@ -29,18 +32,12 @@ error_report = 0
 file_1_path = './' + static_args.protein1
 file_2_path = './' + static_args.protein2
 
-if static_args.model == 'human':
-    model_path = '../../program/DeepTriplet_acc_full.h5'
-elif static_args.model == 'yeast':
-    model_path = '../../program/DeepTriplet_acc_full.h5'
-else:
-    model_path = '../../program/DeepTriplet_acc_full.h5'
+model_path = static_args.model
 
-
-if static_args.model in ['human','yeast','general']:
-    pass
-else:
-    error_report = 1
+print('\nWelcome to use our tool')
+print('\nVersion: 1.0.0')
+print('\nAny problem, please contact mchen@zju.edu.cn')
+print('\nStart to process the raw data')
 
 def read_file(file_path):
     namespace = {}
@@ -85,7 +82,11 @@ def arr_split_n(arr):
     return arr_n
 
 p1_group = read_file(file_1_path)
+if len(p1_group.keys()) != 1:
+    raise Exception('The format of protein_1 is incorrect')
 p2_group = read_file(file_2_path)
+if len(p2_group.keys()) != 1:
+    raise Exception('The format of protein_2 is incorrect')
 
 p1_name_list = list(p1_group.keys())
 p2_name_list = list(p2_group.keys())
@@ -164,6 +165,7 @@ class MySpatialDropout1D(Dropout):
         noise_shape = (input_shape[0], input_shape[1], 1)
         return noise_shape
 
+print('\nModel loading')
 model = tf.keras.models.load_model(model_path, custom_objects={'MyMaskCompute':MyMaskCompute, 'MySpatialDropout1D':MySpatialDropout1D})
 
 output1 = model.predict([am1,as2], verbose = 0)
@@ -259,11 +261,18 @@ def draw(pandas_data, seque, v_max, output_name_1, output_name_2):
         ax.spines[edge].set_visible(True)
         ax.spines[edge].set_color('black')
 
-    ax.tick_params(axis='y', labelsize=16, pad = 0.5)   
-    fig.savefig(output_name_1 + '_' + output_name_2 + '_importance_map.svg', bbox_inches='tight',dpi=fig.dpi,pad_inches=0.0)
-
-draw(df_1, df_1_seq, v_1_max, p1_file, p2_file)
+    ax.tick_params(axis='y', labelsize=16, pad = 0.5)
+    visualization_name = output_name_1 + '_with_respect_to_' + output_name_2 + '_importance_map.svg'   
+    fig.savefig(visualization_name, bbox_inches='tight',dpi=fig.dpi,pad_inches=0.0)
+    
+    return visualization_name
+print('\nStart to draw importance maps ...')
+name_1 = draw(df_1, df_1_seq, v_1_max, p1_file, p2_file)
 import importlib
 importlib.reload(matplotlib); importlib.reload(plt); importlib.reload(sns)
 
-# draw(df_2, df_2_seq, v_2_max, p2_file)
+name_2 = draw(df_2, df_2_seq, v_2_max, p2_file, p1_file)
+
+path = os.getcwd()
+print('\nCongratulations, the visualization results are saved in ' + path)
+print(name_1 + '\t' + name_2)
