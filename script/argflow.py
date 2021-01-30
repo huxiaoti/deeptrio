@@ -130,7 +130,7 @@ class MySpatialDropout1D(Dropout):
         input_shape = K.shape(inputs)
         noise_shape = (input_shape[0], input_shape[1], 1)
         return noise_shape
-print('Model loading')
+print('\nModel loading')
 model = tf.keras.models.load_model(model_path, custom_objects={'MyMaskCompute':MyMaskCompute, 'MySpatialDropout1D':MySpatialDropout1D})
 
 predictions_test = model.predict([group_arr_1, group_arr_2])
@@ -143,15 +143,15 @@ predictions_test = model.predict([group_arr_1, group_arr_2])
 #         for n2 in range(len(predictions_test[n1])):
 #             w.write('\t' + str(predictions_test[n1][n2]))
 #         w.write('\n')
-print('Prediction results\n')
+print('\nPrediction results:')
 
 with open(file_output, 'w') as w:
-    w.write('protein_1\tprotein_2\tmodel\tprobability\tresult\n')
-    print('\nprotein_1\tprotein_2\tmodel\tprobability\tresult')
+    w.write('protein_1\tprotein_2\tprobability\tresult\n')
+    print('protein_1\tprotein_2\tprobability\tresult')
     output_data = {}
     for n in range(len(predictions_test)):
         output_data[group_name[n]] = {}
-        output_data[group_name[n]]['model'] = static_args.model
+        # output_data[group_name[n]]['model'] = static_args.model
         output_data[group_name[n]]['probability'] = str(predictions_test[n][0])
         if predictions_test[n][0] >= 0.5:
             output_data[group_name[n]]['result'] = 'binding'
@@ -159,13 +159,18 @@ with open(file_output, 'w') as w:
             output_data[group_name[n]]['result'] = 'single-protein'
         else:
             output_data[group_name[n]]['result'] = 'non-binding'
-        w.write(group_name[n] + '\t')
-        print('\n' + group_name[n] + '\t')
+        p1_name = group_name[n].split('\t')[0].lstrip('>')
+        p2_name = group_name[n].split('\t')[1].lstrip('>')
+        w.write(p1_name + '\t' + p2_name + '\t')
+        print(p1_name + '\t' + p2_name + '\t', end='')
         for key in list(output_data[group_name[n]].keys()):
             w.write(output_data[group_name[n]][key] + '\t')
-            print(output_data[group_name[n]][key] + '\t')
+            print(output_data[group_name[n]][key] + '\t', end='')
+        print('')
         w.write('\n')
-
+path = os.getcwd()
+print('predcition file is saved in ' + path)
+print(file_output)
 # output_data = []
 # tmp = []
 # for n in range(len(predictions_test)):
@@ -186,4 +191,4 @@ with open(file_output, 'w') as w:
 # with open(file_output, 'w') as w:
 #     json.dump(output_data, w)
 
-print('Thank you for using')
+print('\nThank you for using')
