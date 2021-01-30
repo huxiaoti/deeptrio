@@ -27,12 +27,14 @@ file_output = static_args.output + '.txt'
 
 model_path = static_args.model
 
-
+print('\nWelcome to use our tool')
+print('\nVersion: 1.0.0')
+print('\nAny problem, please contact mchen@zju.edu.cn')
+print('\nStart to process the raw data')
 # if static_args.model in ['human','yeast','general']:
 #     pass
 # else:
 #     error_report = 1
-print ('Welcome to use our software')
 def read_file(file_path):
     namespace = {}
     with open(file_path, 'r') as r:
@@ -135,24 +137,34 @@ predictions_test = model.predict([group_arr_1, group_arr_2])
 
 # print(predictions_test)
 
-with open(file_output, 'w') as w:
-    for n1 in range(len(predictions_test)):
-        w.write(group_name[n1])
-        for n2 in range(len(predictions_test[n1])):
-            w.write('\t' + str(predictions_test[n1][n2]))
-        w.write('\n')
+# with open(file_output, 'w') as w:
+#     for n1 in range(len(predictions_test)):
+#         w.write(group_name[n1])
+#         for n2 in range(len(predictions_test[n1])):
+#             w.write('\t' + str(predictions_test[n1][n2]))
+#         w.write('\n')
+print('Prediction results\n')
 
-output_data = {}
-for n in range(len(predictions_test)):
-    output_data[group_name[n]] = {}
-    output_data[group_name[n]]['model'] = static_args.model
-    output_data[group_name[n]]['probability'] = str(predictions_test[n][0])
-    if predictions_test[n][0] >= 0.5:
-        output_data[group_name[n]]['result'] = 'binding'
-    elif predictions_test[n][2] >= 0.5:
-        output_data[group_name[n]]['result'] = 'single-protein'
-    else:
-        output_data[group_name[n]]['result'] = 'non-binding'
+with open(file_output, 'w') as w:
+    w.write('protein_1\tprotein_2\tmodel\tprobability\tresult\n')
+    print('\nprotein_1\tprotein_2\tmodel\tprobability\tresult')
+    output_data = {}
+    for n in range(len(predictions_test)):
+        output_data[group_name[n]] = {}
+        output_data[group_name[n]]['model'] = static_args.model
+        output_data[group_name[n]]['probability'] = str(predictions_test[n][0])
+        if predictions_test[n][0] >= 0.5:
+            output_data[group_name[n]]['result'] = 'binding'
+        elif predictions_test[n][2] >= 0.5:
+            output_data[group_name[n]]['result'] = 'single-protein'
+        else:
+            output_data[group_name[n]]['result'] = 'non-binding'
+        w.write(group_name[n] + '\t')
+        print('\n' + group_name[n] + '\t')
+        for key in list(output_data[group_name[n]].keys()):
+            w.write(output_data[group_name[n]][key] + '\t')
+            print(output_data[group_name[n]][key] + '\t')
+        w.write('\n')
 
 # output_data = []
 # tmp = []
