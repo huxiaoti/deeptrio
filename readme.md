@@ -19,7 +19,7 @@ You can prepare all the dependencies just by the following commands.
 
   - Install Miniconda
 
-    Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages, including pip, zlib and a few others
+    > Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages, including pip, zlib and a few others
 
     1. Download Miniconda installer for linux : https://docs.conda.io/en/latest/miniconda.html#linux-installers
     2. Check the hashes for the Miniconda from : https://docs.conda.io/en/latest/miniconda_hashes.html
@@ -29,10 +29,10 @@ You can prepare all the dependencies just by the following commands.
 
     If there is no environment in your Miniconda environment, it is recommeneded to create a new environment to run DeepTrio.
 
-    1. Run `conda create -n [your env name] python=3.7`
-    2. Run `conda activate [your env name]`
-    3. Run `conda install tensorflow-gpu==2.1`
-    4. Run `conda install seaborn`
-    5. Run `conda install -c conda-forge scikit-learn`
-    6. Run `conda install -c conda-forge gpyopt`
-    7. Run `conda install -c conda-forge dotmap`
+    1. `conda create -n [your env name] python=3.7`
+    2. `conda activate [your env name]`
+    3. `conda install tensorflow-gpu==2.1`
+    4. `conda install seaborn`
+    5. `conda install -c conda-forge scikit-learn`
+    6. `conda install -c conda-forge gpyopt`
+    7. `conda install -c conda-forge dotmap`
