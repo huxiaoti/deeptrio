@@ -1,13 +1,13 @@
 ## DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
 
-![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) ![](https://img.shields.io/badge/framework-tensorflow2.1-orange.svg) ![](https://img.shields.io/badge/environment-conda-blue.svg) ![](https://img.shields.io/badge/verison-1.0.0-ff69b4.svg)
+![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) ![](https://img.shields.io/badge/backend-tensorflow2.1-orange.svg) ![](https://img.shields.io/badge/environment-conda-blue.svg) ![](https://img.shields.io/badge/verison-1.0.0-ff69b4.svg)
 
 
 
-![alt text](http://bis.zju.edu.cn/deeptrio/structure.svg)
+<!-- ![alt text](http://bis.zju.edu.cn/deeptrio/structure.svg) -->
 
-# Motivation
-Protein-protein interaction (PPI), as a relative property, depends on two binding proteins of it, which brings a great challenge to design an expert model with unbiased learning and superior generalization performance. Additionally, few efforts have been made to grant models discriminative insights on relative properties.
+<!-- # Motivation
+Protein-protein interaction (PPI), as a relative property, depends on two binding proteins of it, which brings a great challenge to design an expert model with unbiased learning and superior generalization performance. Additionally, few efforts have been made to grant models discriminative insights on relative properties. -->
 # Installation
 
 It is recommended to install dependencies in **conda** virtual environment so that only few installation commands are required for running DeepTrio. 
