@@ -7,14 +7,26 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 
 To run DeepSol on your own training data you need to prepare the following two things:
 
-  1. Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the Tab key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). We provide
-  2. Protein Sequence Database File: A file containing protein IDs and their sequences.
+  1. Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). 
+  
+  for example:
+
+  `line1: protein_id_1 [Tab] protein_id_2 [Tab] label`
+  `line2: protein_id_3 [Tab] protein_id_4 [Tab] label`
+
+  2. Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key.
+
+  for example:
+  
+  `line1: protein_id_1 [Tab] protein_1_sequence`
+  `line2: protein_id_3 [Tab] protein_2_sequence`
+
 
 # Run DeepTrio for prediction
 
 # Installation
 
-It is recommended to install dependencies in conda virtual environment so that only few installation commands are required for running DeepTrio. 
+It is recommended to install dependencies in **conda** virtual environment so that only few installation commands are required for running DeepTrio. 
 You can prepare all the dependencies just by the following commands.
 
   - Install Miniconda
@@ -29,10 +41,10 @@ You can prepare all the dependencies just by the following commands.
 
     If there is no environment in your Miniconda environment, it is recommeneded to create a new environment to run DeepTrio.
 
-    1. `conda create -n [your env name] python=3.7`
-    2. `conda activate [your env name]`
-    3. `conda install tensorflow-gpu==2.1`
-    4. `conda install seaborn`
-    5. `conda install -c conda-forge scikit-learn`
-    6. `conda install -c conda-forge gpyopt`
-    7. `conda install -c conda-forge dotmap`
+    1. Run `conda create -n [your env name] python=3.7`
+    2. Run `conda activate [your env name]`
+    3. Run `conda install tensorflow-gpu==2.1`
+    4. Run `conda install seaborn`
+    5. Run `conda install -c conda-forge scikit-learn`
+    6. Run `conda install -c conda-forge gpyopt`
+    7. Run `conda install -c conda-forge dotmap`
