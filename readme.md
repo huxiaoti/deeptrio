@@ -9,8 +9,10 @@ To run DeepSol on your own training data you need to prepare the following two t
 
   1. Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). For example:
 
-  `line1: protein_id_1 [Tab] protein_id_2 [Tab] label`  
-  `line2: protein_id_3 [Tab] protein_id_4 [Tab] label`
+    ```txt
+    line1: protein_id_1 [Tab] protein_id_2 [Tab] label
+    line2: protein_id_3 [Tab] protein_id_4 [Tab] label
+    ```
 
   2. Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. For example:
   
@@ -25,7 +27,7 @@ To run DeepSol on your own training data you need to prepare the following two t
 It is recommended to install dependencies in **conda** virtual environment so that only few installation commands are required for running DeepTrio. 
 You can prepare all the dependencies just by the following commands.
 
-  - Install Miniconda
+  1. Install Miniconda
 
     > Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages, including pip, zlib and a few others
 
@@ -33,11 +35,11 @@ You can prepare all the dependencies just by the following commands.
     2. Check the hashes for the Miniconda from : https://docs.conda.io/en/latest/miniconda_hashes.html
     3. Go to the installation directory and run command : `bash Miniconda3-latest-Linux-x86_64.sh`
 
-  - Creating the environment
+  2. Creating the environment
 
     If there is no environment in your Miniconda environment, it is recommeneded to create a new environment to run DeepTrio.
 
-    1. Run `conda create -n [your env name] python=3.7`
+    - Run `conda create -n [your env name] python=3.7`
     2. Run `conda activate [your env name]`
     3. Run `conda install tensorflow-gpu==2.1`
     4. Run `conda install seaborn`
