@@ -1,23 +1,45 @@
-### DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
+## DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
 
-## Motivation
+# Motivation
 Protein-protein interaction (PPI), as a relative property, depends on two binding proteins of it, which brings a great challenge to design an expert model with unbiased learning and superior generalization performance. Additionally, few efforts have been made to grant models discriminative insights on relative properties.
 
 # Run DeepTrio for training
 
-To run DeepSol on your own training data you need to prepare the following two things:
+1. To run DeepSol on your own training data you need to prepare the following two things:
 
-  1. Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). For example:
+    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). For example:
+
+      ```txt
+      line1:    protein_id_1  [Tab]  protein_id_2  [Tab]  label
+      line2:    protein_id_3  [Tab]  protein_id_4  [Tab]  label
+      ```
+
+    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. For example:
+   
+      ```txt
+      line1:    protein_id_1  [Tab]  protein_1_sequence  
+      line2:    protein_id_3  [Tab]  protein_2_sequence
+      ```
+2. Execute command arguments with in shell:
+
+    ```shell
+    python build_model.py -p [ppi.tsv] -d [database.tsv] -e [the number of epochs] -h
+    ```
+    **Arguments:**
+
+    |Abbr.|Arg.|Required|Description|
+    |  ----   | ----  | ----  |----  |
+    | -p  | --ppi | Yes | PPI file with it path|
+    | -d  | --database | Yes | Database file with it path|
+    | -e  | --epoch | No | The maximum number of epochs|
+    | -h  | --help | No | Help message|
+
+3. Select the best model according to **GpyOpt** log file:
 
     ```txt
-    line1: protein_id_1 [Tab] protein_id_2 [Tab] label
-    line2: protein_id_3 [Tab] protein_id_4 [Tab] label
+    python build_model.py -p [ppi.tsv] -d [database.tsv] -e [the number of epochs] -h
     ```
 
-  2. Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. For example:
-  
-  `line1: protein_id_1 [Tab] protein_1_sequence`  
-  `line2: protein_id_3 [Tab] protein_2_sequence`
 
 
 # Run DeepTrio for prediction

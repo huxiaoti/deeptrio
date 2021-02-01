@@ -130,7 +130,7 @@ def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.14, strides_rate_1=0.2, kerne
         history_model = model.fit([x_1[0],x_2[0]], y_train[0], batch_size=256, epochs=1, shuffle=True, validation_data=([v_1[0],v_2[0]], v_y[0]))
         if history_model.history['val_accuracy'][0] > record_min:
             record_min = history_model.history['val_accuracy'][0]
-            model.save('DeepTriplet_search_' + str(yy) + '.h5') ##########
+            model.save('DeepTrio_search_' + str(yy) + '.h5') ##########
             print(str(record_min)+'\taccuracy_model_saved')
 
     with open('search_log.txt', 'a') as log_text:
