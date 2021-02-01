@@ -28,7 +28,7 @@ You can prepare all the dependencies just by the following commands.
     5. Run `conda install -c conda-forge scikit-learn`
     6. Run `conda install -c conda-forge gpyopt`
     7. Run `conda install -c conda-forge dotmap`
-# Run DeepTrio for training
+# Run DeepTrio for Training
 
 1. To run DeepSol on your own training data you need to prepare the following two things:
 
@@ -48,11 +48,11 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command arguments with in shell:
 
     ```shell
-    python build_model.py -p [ppi.tsv] -d [database.tsv] -e [the number of epochs] -h
+    python build_model.py [-h] -p PPI -d DATABASE [-e EPOCH]
     ```
     **Arguments:**
 
-    |Abbr.|Arg.|Required|Description|
+    |Abbreviation|Argument|Required|Description|
     |  ----   | ----  | ----  |----  |
     | -p  | --ppi | Yes | PPI file with it path|
     | -d  | --database | Yes | Database file with it path|
@@ -82,8 +82,8 @@ You can prepare all the dependencies just by the following commands.
 4. Use the DeepTrio model to predict PPIs.
 
 
-# Run DeepTrio for prediction
-1. To run DeepSol on your own query protein pairs you need to prepare the following three things:
+# Run DeepTrio for Prediction
+1. To run DeepSol for prediction on your own query protein pairs you need to prepare the following three things:
 
     * The first protein File: It can contain multiple proteins in fasta format. For example:
 
@@ -100,6 +100,8 @@ You can prepare all the dependencies just by the following commands.
       line1:    >protein_id_3
       line2:    protein_3_sequence
       ```
+    
+    * The model file name and its path. 
 
     * The inputs of DeepTrio will be:
 
@@ -111,14 +113,56 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command arguments with in shell:
 
     ```shell
-    python main.py -p1 [protein_1.fasta] -p2 [protein_2.fasta] -m [model] -o [output file name] -h
+    python main.py [-h] -p1 PROTEIN1 -p2 PROTEIN2 -m MODEL [-o OUTPUT]
     ```
     **Arguments:**
 
-    |Abbr.|Arg.|Required|Description|
+    |Abbreviation|Argument|Required|Description|
     |  ----   | ----  | ----  |----  |
     | -p1  | --protein1 | Yes | The first protein group in fasta format with its path|
     | -p2  | --protein2 | Yes | The second protein group in fasta format with its path|
     | -m | --model | Yes | The DeepTrio model with its path|
     | -o | --output | No | The output file name|
     | -h  | --help | No | Help message|
+
+# Run DeepTrio for Visualization
+1. To run DeepSol for visualization on your own query protein pairs you need to prepare the following three things:
+
+    * The first protein File: which must contain only one protein in fasta format. For example:
+
+      ```txt
+      line1:    >protein_id_1
+      line2:    protein_1_sequence
+      ```
+
+    * The second protein File: which must contain only one protein, like `the first protein File`. 
+
+    * The model file name and its path.
+
+2. Execute command arguments with in shell:
+
+    ```shell
+    python main.py [-h] -p1 PROTEIN1 -p2 PROTEIN2 -m MODEL
+    ```
+    **Arguments:**
+
+    |Abbreviation|Argument|Required|Description|
+    |  ----   | ----  | ----  |----  |
+    | -p1  | --protein1 | Yes | The first protein group in fasta format with its path|
+    | -p2  | --protein2 | Yes | The second protein group in fasta format with its path|
+    | -m | --model | Yes | The DeepTrio model with its path|
+    | -h  | --help | No | Help message|
+
+# FAQ
+
+1. Can I use pip to install the environment dependencies?
+
+A) Yes, you need to install some addtional libraries, like GPU drivers, matplotlib, numpy, Gpy and so on, so we recommend to use conda to install dependencies.
+
+2. Can DeepTrio run on Windows?
+
+A) Yes, if you configure conda virtual environment on your Windows PC.
+
+3. I am not good at using Unix software, is there any conventient ways to use DeepTrio?
+
+A) Yes, you can visit our online website : http://bis.zju.edu.cn/deeptrio, where you can prediction PPIs and draw importance maps on the DeepTrio model without any configurations.
