@@ -8,7 +8,7 @@
 
 <!-- # Motivation
 Protein-protein interaction (PPI), as a relative property, depends on two binding proteins of it, which brings a great challenge to design an expert model with unbiased learning and superior generalization performance. Additionally, few efforts have been made to grant models discriminative insights on relative properties. -->
-# Installation
+### Installation
 
 It is recommended to install dependencies in **conda** virtual environment so that only few installation commands are required for running DeepTrio. 
 You can prepare all the dependencies just by the following commands.
@@ -32,7 +32,7 @@ You can prepare all the dependencies just by the following commands.
     5. Run `conda install -c conda-forge scikit-learn`
     6. Run `conda install -c conda-forge gpyopt`
     7. Run `conda install -c conda-forge dotmap`
-# Run DeepTrio for Training
+### Run DeepTrio for Training
 
 1. To run DeepSol on your own training data you need to prepare the following two things:
 
@@ -86,7 +86,7 @@ You can prepare all the dependencies just by the following commands.
 4. Use the DeepTrio model to predict PPIs.
 
 
-# Run DeepTrio for Prediction
+### Run DeepTrio for Prediction
 1. To run DeepSol for prediction on your own query protein pairs you need to prepare the following three things:
 
     * The first protein File: It can contain multiple proteins in fasta format. For example:
@@ -129,7 +129,7 @@ You can prepare all the dependencies just by the following commands.
     | -o | --output | No | The output file name|
     | -h  | --help | No | Help message|
 
-# Run DeepTrio for Visualization
+### Run DeepTrio for Visualization
 1. To run DeepSol for visualization on your own query protein pairs you need to prepare the following three things:
 
     * The first protein File: which must contain only one protein in fasta format. For example:
