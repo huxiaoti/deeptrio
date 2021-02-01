@@ -37,12 +37,65 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 3. Select the best model according to **GpyOpt** log file:
 
     ```txt
-    python build_model.py -p [ppi.tsv] -d [database.tsv] -e [the number of epochs] -h
+    DeepTrio_search_1.h5
+    DeepTrio_search_2.h5
+    DeepTrio_search_3.h5
+    DeepTrio_search_4.h5
+    ...
+    search_log.txt
     ```
+    * The `search_log.txt` shows the details of all the candidate models' parameters and the best model parameters.
 
+    ```txt
+    result: 
+        parameter   em_dim:         15.0
+        parameter   sp_drop:        0.005
+        parameter   kernel_rate_1:  0.16
+        ...
+        evaluation: 0.9795729
+    ```
+4. Use the DeepTrio model to predict PPIs.
 
 
 # Run DeepTrio for prediction
+1. To run DeepSol on your own query protein pairs you need to prepare the following three things:
+
+    * The first protein File: It can contain multiple proteins in fasta format. For example:
+
+      ```txt
+      line1:    >protein_id_1
+      line2:    protein_1_sequence
+      line3:    >protein_id_2
+      line4:    protein_2_sequence
+      ```
+
+    * The second protein File: It can contain multiple proteins in fasta format. For example:
+   
+      ```txt
+      line1:    >protein_id_3
+      line2:    protein_3_sequence
+      ```
+
+    * The inputs of DeepTrio will be:
+
+      ```txt
+      the first query protein pair:   protein_1 and protein_3
+      the second query protein pair:  protein_2 and protein_3
+      ```
+
+2. Execute command arguments with in shell:
+
+    ```shell
+    python main.py -p1 [protein_1.fasta] -p2 [protein_2.fasta] -m [model] -o [output file name] -h
+    ```
+    **Arguments:**
+
+    |Abbr.|Arg.|Required|Description|
+    |  ----   | ----  | ----  |----  |
+    | -p  | --ppi | Yes | PPI file with it path|
+    | -d  | --database | Yes | Database file with it path|
+    | -e  | --epoch | No | The maximum number of epochs|
+    | -h  | --help | No | Help message|
 
 # Installation
 
