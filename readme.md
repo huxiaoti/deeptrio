@@ -1,5 +1,9 @@
 ## DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
 
+![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) ![](https://img.shields.io/badge/framework-tensorflow2.1-orange.svg) ![](https://img.shields.io/badge/environment-conda-blue.svg) ![](https://img.shields.io/badge/verison-1.0.0-ff69b4.svg)
+
+
+
 ![alt text](http://bis.zju.edu.cn/deeptrio/structure.svg)
 
 # Motivation
@@ -155,14 +159,14 @@ You can prepare all the dependencies just by the following commands.
 
 # FAQ
 
-1. Can I use pip to install the environment dependencies?
+#### 1. Can I use pip to install the environment dependencies?
 
 A) Yes, you need to install some addtional libraries, like GPU drivers, matplotlib, numpy, Gpy and so on, so we recommend to use conda to install dependencies.
 
-2. Can DeepTrio run on Windows?
+#### 2. Can DeepTrio run on Windows?
 
 A) Yes, if you configure conda virtual environment on your Windows PC.
 
-3. I am not good at using Unix software, is there any conventient ways to use DeepTrio?
+#### 3. I am not good at using Unix software, is there any conventient ways to use DeepTrio?
 
 A) Yes, you can visit our online website : http://bis.zju.edu.cn/deeptrio, where you can prediction PPIs and draw importance maps on the DeepTrio model without any configurations.
