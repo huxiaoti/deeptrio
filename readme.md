@@ -92,9 +92,10 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 
     |Abbr.|Arg.|Required|Description|
     |  ----   | ----  | ----  |----  |
-    | -p  | --ppi | Yes | PPI file with it path|
-    | -d  | --database | Yes | Database file with it path|
-    | -e  | --epoch | No | The maximum number of epochs|
+    | -p1  | --protein1 | Yes | The first protein group in fasta format with its path|
+    | -p2  | --protein2 | Yes | The second protein group in fasta format with its path|
+    | -m | --model | Yes | The DeepTrio model with its path|
+    | -o | --output | No | The output file name|
     | -h  | --help | No | Help message|
 
 # Installation
@@ -102,7 +103,7 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 It is recommended to install dependencies in **conda** virtual environment so that only few installation commands are required for running DeepTrio. 
 You can prepare all the dependencies just by the following commands.
 
-  1. Install Miniconda
+1. Install Miniconda
 
     > Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages, including pip, zlib and a few others
 
@@ -110,11 +111,11 @@ You can prepare all the dependencies just by the following commands.
     2. Check the hashes for the Miniconda from : https://docs.conda.io/en/latest/miniconda_hashes.html
     3. Go to the installation directory and run command : `bash Miniconda3-latest-Linux-x86_64.sh`
 
-  2. Creating the environment
+2. Creating the environment
 
     If there is no environment in your Miniconda environment, it is recommeneded to create a new environment to run DeepTrio.
 
-    - Run `conda create -n [your env name] python=3.7`
+    1. Run `conda create -n [your env name] python=3.7`
     2. Run `conda activate [your env name]`
     3. Run `conda install tensorflow-gpu==2.1`
     4. Run `conda install seaborn`
