@@ -147,24 +147,5 @@ with open(file_output, 'w') as w:
 path = os.getcwd()
 print('predcition file is saved in ' + path)
 print(file_output)
-# output_data = []
-# tmp = []
-# for n in range(len(predictions_test)):
-#     protein_names = group_name[n].split('\t')
-#     tmp.append(protein_names[0])
-#     tmp.append(protein_names[1])
-#     tmp.append(static_args.model)
-#     tmp.append(str(predictions_test[n][0]))
-#     if predictions_test[n][0] >= 0.5:
-#         tmp.append('binding')
-#     elif predictions_test[n][2] >= 0.5:
-#         tmp.append('single-protein')
-#     else:
-#         tmp.append('non-binding')
-#     output_data.append(tmp)
-#     tmp = []
-
-# with open(file_output, 'w') as w:
-#     json.dump(output_data, w)
 
 print('\nThank you for using')
