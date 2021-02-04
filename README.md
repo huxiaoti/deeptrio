@@ -117,7 +117,7 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command arguments with in shell:
 
     ```shell
-    python main.py [-h] -p1 PROTEIN1 -p2 PROTEIN2 -m MODEL [-o OUTPUT]
+    python visual_DeepTrio.py [-h] -p1 PROTEIN1 -p2 PROTEIN2 -m MODEL [-o OUTPUT]
     ```
     **Arguments:**
 
@@ -167,6 +167,6 @@ A) Yes, you need to install some addtional libraries, like GPU drivers, matplotl
 
 A) Yes, if you configure conda virtual environment on your Windows PC.
 
-#### 3. I am not good at using Unix software, is there any conventient ways to use DeepTrio?
+#### 3. If I am not good at using Unix software, is there any conventient ways to use DeepTrio?
 
 A) Yes, you can visit our online website : http://bis.zju.edu.cn/deeptrio, where you can prediction PPIs and draw importance maps on the DeepTrio model without any configurations.

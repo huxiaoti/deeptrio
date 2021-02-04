@@ -51,17 +51,14 @@ def get_callbacks():
                                         save_best_only=True)
     return [checkpointer]
   
-x_train_1 = np.load('../double_arr_1_b.npy')
-x_train_2 = np.load('../double_arr_2_b.npy')
-y_train = np.load('../double_arr_3_b.npy')
+x_train_1 = np.load(r'double_arr_1_b.npy')
+x_train_2 = np.load(r'double_arr_2_b.npy')
+y_train_f = np.load(r'double_arr_3_b.npy')
 
-s_1 = np.load('../double_arr_1_s.npy')
-s_2 = np.load('../double_arr_2_s.npy')
-s_y = np.load('../double_arr_3_s.npy')
-
-v_1 = np.load(r'random_pair_1.npy')
-v_2 = np.load(r'random_pair_2.npy')
-v_y = np.load(r'random_pair_y.npy')
+y_train = y_train_f[:,:2]
+# s_1 = np.load(r'double_arr_1_s.npy')
+# s_2 = np.load(r'double_arr_2_s.npy')
+# s_y = np.load(r'double_arr_3_s.npy')
 
 def random_arr(arr):
     np.random.seed(5)
@@ -72,7 +69,7 @@ def random_arr(arr):
 random_arr(x_train_1)
 random_arr(x_train_2)
 random_arr(y_train)
-'''
+
 from sklearn.model_selection import KFold, ShuffleSplit
 
 x_a_1 = {}
@@ -89,14 +86,14 @@ for train_index, test_index in kf.split(y_train):
     x_a_2[kfnum], x_t_2[kfnum] = x_train_2[train_index], x_train_2[test_index]
     y_a[kfnum], y_t_s[kfnum] = y_train[train_index], y_train[test_index]
     kfnum += 1
-'''
 
-x_a_1 = np.concatenate([s_1, x_train_1], 0)
-x_a_2 = np.concatenate([s_2, x_train_2], 0)
-y_a = np.concatenate([s_y, y_train], 0)
-random_arr(x_a_1)
-random_arr(x_a_2)
-random_arr(y_a)
+# for ks in range(spl_num):
+#     x_a_1[ks] = np.concatenate([s_1, x_a_1[ks]], 0)
+#     x_a_2[ks] = np.concatenate([s_2, x_a_2[ks]], 0)
+#     y_a[ks] = np.concatenate([s_y, y_a[ks]], 0)
+#     random_arr(x_a_1[ks])
+#     random_arr(x_a_2[ks])
+#     random_arr(y_a[ks])
 
 
 def main(em_dim, sp_drop, kernel_rate_1, strides_rate_1, kernel_rate_2, strides_rate_2, filter_num_1, filter_num_2, con_drop, fn_drop_1, fn_drop_2, node_num, opti_switch):
@@ -109,9 +106,6 @@ def main(em_dim, sp_drop, kernel_rate_1, strides_rate_1, kernel_rate_2, strides_
     
     main_input_a = Input(shape = (1500,), name = 'input_a')
     main_input_b = Input(shape = (1500,), name = 'input_b')
-
-    # tf.dtypes.cast(main_input_a, tf.int32)
-    # tf.dtypes.cast(main_input_b, tf.int32)
 
     embedding_layer = Embedding(25,int(em_dim),mask_zero=True)
     embedded_a = embedding_layer(main_input_a)
@@ -169,12 +163,12 @@ def main(em_dim, sp_drop, kernel_rate_1, strides_rate_1, kernel_rate_2, strides_
     x = Dense(int(node_num))(x)
     x = Dropout(fn_drop_2)(x)
     x = Activation('relu')(x)
-    x = Dense(3)(x)
+    x = Dense(2)(x)
     main_output = Activation('softmax', name = 'out')(x)
 
     model = Model(inputs = [main_input_a,main_input_b], outputs = main_output)
 
-    model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
+    model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
 
     return model
 
@@ -183,11 +177,10 @@ record_min = 0
 
 model = main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.16, strides_rate_1=0.15, kernel_rate_2=0.14, strides_rate_2=0.25, filter_num_1=150, filter_num_2=175, con_drop=0.05, fn_drop_1=0.2, fn_drop_2=0.1, node_num=256, opti_switch=1)
 
-file_name = 'record_random_pair_val_1.txt' #########################
+file_name = 'record_Deep_doublet_forth.txt' #########################
 for n in range(100):
-    history_model = model.fit([x_a_1,x_a_2], y_a, batch_size=256, epochs=1, shuffle=True, validation_data=([v_1,v_2], v_y))
+    history_model = model.fit([x_a_1[4],x_a_2[4]], y_a[4], batch_size=256, epochs=1, shuffle=True, validation_data=([x_t_1[4],x_t_2[4]], y_t_s[4]))
     print(str(record_min))
-
     with open(file_name, 'a') as w:
         w.write(str(n) + ' ')
         w.write('loss: ' + str(history_model.history['loss'][0]) + ' ')
@@ -195,13 +188,13 @@ for n in range(100):
         w.write('val_loss: ' + str(history_model.history['val_loss'][0]) + ' ')
         w.write('val_acc: ' + str(history_model.history['val_accuracy'][0]) + '\n')
 
-    # if history_model.history['val_loss'][0] < record_max:
-    #     record_max = history_model.history['val_loss'][0]
-    #     print(str(record_max)+'\tloss_model_saved')
+    if history_model.history['val_loss'][0] < record_max:
+        record_max = history_model.history['val_loss'][0]
+        print(str(record_max)+'\tloss_model_saved')
         
     if history_model.history['val_accuracy'][0] > record_min:
         record_min = history_model.history['val_accuracy'][0]
-        model.save(r'DeepTrio_acc_random_val_1.h5') ########################
+        model.save(r'DeepDoublet_acc_forth.h5') ########################
         print(str(record_min)+'\taccuracy_model_saved')
 
 with open(file_name, 'a') as w:
