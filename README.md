@@ -165,8 +165,8 @@ A) Yes, you need to install some addtional libraries, like GPU drivers, matplotl
 
 #### 2. Can DeepTrio run on Windows?
 
-A) Yes, if you configure conda virtual environment on your Windows PC.
+A) Yes, you can configure conda virtual environment on your Windows PC.
 
-#### 3. If I am not good at using Unix software, is there any conventient ways to use DeepTrio?
+#### 3. If I am not good at using Unix software, is there any conventient way to use DeepTrio?
 
-A) Yes, you can visit our online website : http://bis.zju.edu.cn/deeptrio, where you can prediction PPIs and draw importance maps on the DeepTrio model without any configurations.
+A) Yes, you can visit our online website : http://bis.zju.edu.cn/deeptrio, where you can predicti PPIs and draw importance maps on the DeepTrio model without any configurations.
