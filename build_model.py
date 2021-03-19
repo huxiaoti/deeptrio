@@ -50,7 +50,7 @@ x_1, x_2, y_train, v_1, v_2, v_y = array_split(10, x_train_1, x_train_2, y_train
 print('\nStart to train DeepTrio model')
 print('\nAfter training, you may select the best model manually according to the recording file')
 
-def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.14, strides_rate_1=0.2, kernel_rate_2=0.1, strides_rate_2=0.3, filter_num_1=125, filter_num_2=175, con_drop=0.05, fn_drop_1=0.2, fn_drop_2=0.1, node_num=128, opti_switch=0):
+def main(em_dim=15, sp_drop=0.005, kernel_rate_1=0.16, strides_rate_1=0.15, kernel_rate_2=0.14, strides_rate_2=0.25, filter_num_1=150, filter_num_2=175, con_drop=0.05, fn_drop_1=0.2, fn_drop_2=0.1, node_num=256, opti_switch=1):
 
     if opti_switch == 0:
         adam = Adam(amsgrad = False)
