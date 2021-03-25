@@ -307,7 +307,7 @@ if __name__ == "__main__":
 #                        mkdir(result_dir)  
     for (train_index, test_index) in skf.split(train_fea_protein_AB,train_label):
 
-        if i == 4: ######################################
+        if i == 1: ######################################
             print("================")
             print(test_index)
             print(train_index)
@@ -339,7 +339,7 @@ if __name__ == "__main__":
             for epoch_num in range(nb_epoch):
                 history_model = model.fit([X_train_left, X_train_right], y_train, batch_size = batch_size, epochs = 1, verbose = 1,validation_data=([X_test_left, X_test_right],y_test))
                 print('greast_accuracy: ' + str(record_min))
-                with open('record_ep_ppi_forth.txt', 'a') as w: ######################
+                with open('record_ep_ppi_first.txt', 'a') as w: ######################
                     w.write(str(epoch_num) + ' ')
                     w.write('loss: ' + str(history_model.history['loss'][0]) + ' ')
                     w.write('acc: ' + str(history_model.history['acc'][0]) + ' ')
@@ -350,7 +350,7 @@ if __name__ == "__main__":
                         #model.save(r'ep_ppi_loss.h5')
                     if history_model.history['val_acc'][0] > record_min:
                         record_min = history_model.history['val_acc'][0]
-                        model.save(r'ep_ppi_acc_forth.h5') #########################
+                        model.save(r'ep_ppi_acc_first.h5') #########################
         
             '''
             print('******   model created!  ******')
