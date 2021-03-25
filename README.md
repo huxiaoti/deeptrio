@@ -63,6 +63,21 @@ You can prepare all the dependencies just by the following commands.
     | -e  | --epoch | No | The maximum number of epochs|
     | -h  | --help | No | Help message|
 
+   You can alternatively run `build_model_fast.py` without hyper-parameter searching:
+
+    ```shell
+    python build_model.py [-h] -p PPI -d DATABASE -i FOLD [-e EPOCH]
+    ```
+    **Arguments:**
+
+    |Abbreviation|Argument|Required|Description|
+    |  ----   | ----  | ----  |----  |
+    | -p  | --ppi | Yes | PPI file with it path|
+    | -d  | --database | Yes | Database file with it path|
+    | -i  | --fold | Yes | The fold index in 5 CV (from 0 to 4)|
+    | -e  | --epoch | No | The maximum number of epochs|
+    | -h  | --help | No | Help message|
+    
 3. Select the best model according to **GpyOpt** log file:
 
     ```txt
