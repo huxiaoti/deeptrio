@@ -223,7 +223,7 @@ record_a = 0
 epoch_num = 0
 for train, test in train_test:
     
-    if epoch_num == 4: ######################################
+    if epoch_num == 1: ######################################
         merge_model = None
         merge_model = build_model()
         adam = Adam(lr=0.001, amsgrad=True, epsilon=1e-6)
@@ -233,7 +233,7 @@ for train, test in train_test:
             history_model = merge_model.fit([seq_tensor[seq_index1[train]], seq_tensor[seq_index2[train]]], class_labels[train], batch_size=batch_size1, epochs=1, validation_data=([seq_tensor[seq_index1[test]], seq_tensor[seq_index2[test]]],class_labels[test]))
             print('greatest_accuracy: ' + str(record_a))
                         #merge_model.save(r'pipr_current_zero.h5')
-            with open('record_pipr_forth.txt', 'a') as w: ##################
+            with open('record_pipr_first.txt', 'a') as w: ##################
                 w.write(str(n) + '\t')
                 w.write('loss: ' + str(history_model.history['loss'][0]) + '\t')
                 w.write('acc: ' + str(history_model.history['acc'][0]) + '\t')
@@ -244,7 +244,7 @@ for train, test in train_test:
                 #merge_model.save(r'pipr_loss_zero.h5')
             if history_model.history['val_acc'][0] > record_a:
                 record_a = history_model.history['val_acc'][0]
-                merge_model.save(r'pipr_acc_forth.h5') ####################
+                merge_model.save(r'pipr_acc_first.h5') ####################
     epoch_num += 1
 #     pred = merge_model.predict([seq_tensor[seq_index1[test]], seq_tensor[seq_index2[test]]])
 #     for i in range(len(class_labels[test])):
