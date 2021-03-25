@@ -66,7 +66,7 @@ You can prepare all the dependencies just by the following commands.
    You can alternatively run `build_model_fast.py` without hyper-parameter searching:
 
     ```shell
-    python build_model.py [-h] -p PPI -d DATABASE -i FOLD [-e EPOCH]
+    python build_model_fast.py [-h] -p PPI -d DATABASE -i FOLD [-e EPOCH]
     ```
     **Arguments:**
 
