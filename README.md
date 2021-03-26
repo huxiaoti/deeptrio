@@ -74,7 +74,7 @@ You can prepare all the dependencies just by the following commands.
     |  ----   | ----  | ----  |----  |
     | -p  | --ppi | Yes | PPI file with it path|
     | -d  | --database | Yes | Database file with it path|
-    | -i  | --fold | Yes | The fold index in 5 CV (from 0 to 4)|
+    | -i  | --fold | Yes | The fold index in 5-fold CV (from 0 to 4)|
     | -e  | --epoch | No | The maximum number of epochs|
     | -h  | --help | No | Help message|
     

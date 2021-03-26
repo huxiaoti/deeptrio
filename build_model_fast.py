@@ -27,7 +27,7 @@ warnings.filterwarnings("ignore")
 parser = argparse.ArgumentParser(description='train DeepTrio')
 parser.add_argument('-p', '--ppi', required=True, type=str, help='configuration of the PPI file, which contains the protein 1 id, protein 2 id and the class they belong to, and they are splited by table key')
 parser.add_argument('-d', '--database', required=True, type=str, help='configuration of the protein sequence database, which contains the protein id and its sequence, and they are splited by table key')
-parser.add_argument('-i', '--fold', required=True, type=str, help='fold index, from 0 to 4')
+parser.add_argument('-i', '--fold', required=True, type=str, help='fold index, from 0 to 4 for 5-fold CV')
 parser.add_argument('-e', '--epoch', default='100', type=str, help='the maximum number of epochs')
 
 static_args = parser.parse_args()
