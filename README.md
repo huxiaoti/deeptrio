@@ -49,7 +49,7 @@ You can prepare all the dependencies just by the following commands.
       line1:    protein_id_1  [Tab]  protein_1_sequence  
       line2:    protein_id_3  [Tab]  protein_2_sequence
       ```
-2. Execute command arguments with in shell:
+2. Execute command with arguments in shell:
 
     ```shell
     python build_model.py [-h] -p PPI -d DATABASE [-e EPOCH]
