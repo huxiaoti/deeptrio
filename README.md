@@ -58,8 +58,8 @@ You can prepare all the dependencies just by the following commands.
 
     |Abbreviation|Argument|Required|Description|
     |  ----   | ----  | ----  |----  |
-    | -p  | --ppi | Yes | PPI file with it path|
-    | -d  | --database | Yes | Database file with it path|
+    | -p  | --ppi | Yes | PPI file with its path|
+    | -d  | --database | Yes | Database file with its path|
     | -e  | --epoch | No | The maximum number of epochs|
     | -h  | --help | No | Help message|
 
@@ -72,8 +72,8 @@ You can prepare all the dependencies just by the following commands.
 
     |Abbreviation|Argument|Required|Description|
     |  ----   | ----  | ----  |----  |
-    | -p  | --ppi | Yes | PPI file with it path|
-    | -d  | --database | Yes | Database file with it path|
+    | -p  | --ppi | Yes | PPI file with its path|
+    | -d  | --database | Yes | Database file with its path|
     | -i  | --fold | Yes | The fold index in 5-fold CV (from 0 to 4)|
     | -e  | --epoch | No | The maximum number of epochs|
     | -h  | --help | No | Help message|
