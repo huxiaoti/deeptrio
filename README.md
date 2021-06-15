@@ -129,7 +129,7 @@ You can prepare all the dependencies just by the following commands.
       the second query protein pair:  protein_2 and protein_3
       ```
 
-2. Execute command arguments with in shell:
+2. Execute command with arguments in shell:
 
     ```shell
     python main.py [-h] -p1 PROTEIN1 -p2 PROTEIN2 -m MODEL [-o OUTPUT]
@@ -158,7 +158,7 @@ You can prepare all the dependencies just by the following commands.
 
     * The model file name and its path.
 
-2. Execute command arguments with in shell:
+2. Execute command with arguments in shell:
 
     ```shell
     python visual_DeepTrio.py [-h] -p1 PROTEIN1 -p2 PROTEIN2 -m MODEL
