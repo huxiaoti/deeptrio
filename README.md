@@ -1,6 +1,6 @@
 ## DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
 
-![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) ![](https://img.shields.io/badge/backend-tensorflow2.1-orange.svg) ![](https://img.shields.io/badge/environment-conda-blue.svg) ![](https://img.shields.io/badge/verison-1.0.0-ff69b4.svg)
+![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) &#160;&#160;&#160;![](https://img.shields.io/badge/backend-tensorflow2.1-orange.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/environment-conda-blue.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/verison-1.1.0-ff69b4.svg)
 
 
 
@@ -36,14 +36,14 @@ You can prepare all the dependencies just by the following commands.
 
 1. To run DeepSol on your own training data you need to prepare the following two things:
 
-    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). For example:
+    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). This file must be named as [(your customized name).pair.tsv]. For example:
 
       ```txt
       line1:    protein_id_1  [Tab]  protein_id_2  [Tab]  label
       line2:    protein_id_3  [Tab]  protein_id_4  [Tab]  label
       ```
 
-    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. For example:
+    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. This file must be named as [(your customized name).seq.tsv]. For example:
    
       ```txt
       line1:    protein_id_1  [Tab]  protein_1_sequence  
@@ -52,53 +52,19 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command with arguments in shell:
 
     ```shell
-    python build_model.py [-h] -p PPI -d DATABASE [-e EPOCH]
+    python build_model.py [-h] [--dataset DATASET] [--fold_index FOLD_INDEX]
+                          [--epoch EPOCH] [--seed SEED] [--outer_product OUTER_PRODUCT]
     ```
     **Arguments:**
 
-    |Abbreviation|Argument|Required|Description|
-    |  ----   | ----  | ----  |----  |
-    | -p  | --ppi | Yes | PPI file with its path|
-    | -d  | --database | Yes | Database file with its path|
-    | -e  | --epoch | No | The maximum number of epochs|
-    | -h  | --help | No | Help message|
-
-   You can alternatively run `build_model_fast.py` without hyper-parameter searching:
-
-    ```shell
-    python build_model_fast.py [-h] -p PPI -d DATABASE -i FOLD [-e EPOCH]
-    ```
-    **Arguments:**
-
-    |Abbreviation|Argument|Required|Description|
-    |  ----   | ----  | ----  |----  |
-    | -p  | --ppi | Yes | PPI file with its path|
-    | -d  | --database | Yes | Database file with its path|
-    | -i  | --fold | Yes | The fold index in 5-fold CV (from 0 to 4)|
-    | -e  | --epoch | No | The maximum number of epochs|
-    | -h  | --help | No | Help message|
-    
-3. Select the best model according to **GpyOpt** log file:
-
-    ```txt
-    DeepTrio_search_1.h5
-    DeepTrio_search_2.h5
-    DeepTrio_search_3.h5
-    DeepTrio_search_4.h5
-    ...
-    search_log.txt
-    ```
-    * The `search_log.txt` shows the details of all the candidate models' parameters and the best model parameters.
-
-    ```txt
-    result: 
-        parameter   em_dim:         15.0
-        parameter   sp_drop:        0.005
-        parameter   kernel_rate_1:  0.16
-        ...
-        evaluation: 0.9795729
-    ```
-4. Use the DeepTrio model to predict PPIs.
+    |Argument|Required|Default|Description|
+    | ----  | ----  |  ----  |----  |
+    | --dataset | Yes || The customized name of your dataset|
+    | --fold_index | Yes |0| The fold index in 5-fold cross-validation|
+    | --seed | No |555| The seed of the model|
+    | --outer_product | No |False| Whether apply max-pooling on outer-product of two proteins|
+    | --epoch | No |100| The maximum number of epochs|
+    | --help | No || Help message|
 
 
 ### Run DeepTrio for Prediction

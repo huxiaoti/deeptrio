@@ -8,14 +8,20 @@ def random_arr(arr):
     np.random.seed(55)
     np.random.shuffle(arr)
 
-def array_split(num, arr_ppi_1, arr_ppi_2, arr_ppi_y, arr_single_1, arr_single_2, arr_single_y):
+def array_split(num, arr_ppi_1, arr_ppi_2, arr_ppi_y, arr_single_1, arr_single_2, arr_single_y, fix_text):
 
     x_a_1 = {}
     x_t_1 = {}
+    
     x_a_2 = {}
     x_t_2 = {}
+    
     y_a = {}
     y_t_s = {}
+    
+    h_a_t = {}
+    h_r_t = {}
+    
     kfnum = 0
     spl_num = num
 
@@ -24,6 +30,7 @@ def array_split(num, arr_ppi_1, arr_ppi_2, arr_ppi_y, arr_single_1, arr_single_2
         x_a_1[kfnum], x_t_1[kfnum] = arr_ppi_1[train_index], arr_ppi_1[test_index]
         x_a_2[kfnum], x_t_2[kfnum] = arr_ppi_2[train_index], arr_ppi_2[test_index]
         y_a[kfnum], y_t_s[kfnum] = arr_ppi_y[train_index], arr_ppi_y[test_index]
+        h_a_t[kfnum], h_r_t[kfnum] = fix_text[train_index], fix_text[test_index]
         kfnum += 1
 
     for ks in range(spl_num):
@@ -33,5 +40,6 @@ def array_split(num, arr_ppi_1, arr_ppi_2, arr_ppi_y, arr_single_1, arr_single_2
         random_arr(x_a_1[ks])
         random_arr(x_a_2[ks])
         random_arr(y_a[ks])
+        random_arr(h_a_t[ks])
 
-    return x_a_1, x_a_2, y_a, x_t_1, x_t_2, y_t_s
+    return x_a_1, x_a_2, y_a, x_t_1, x_t_2, y_t_s, h_a_t, h_r_t
