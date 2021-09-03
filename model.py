@@ -30,6 +30,11 @@ parser.add_argument('--outer_product', default=False, action='store_true', help=
 
 args = parser.parse_args()
 
+if not args.outer_product:
+    no_product_max = True
+else:
+    no_product_max = False
+
 pair_file = args.dataset + '_pair.tsv'
 seq_file = args.dataset + '_seq.tsv'
 
@@ -94,7 +99,7 @@ for n in range(2, 35):
     flat_out_1 = Flatten()(pool_out_1)
     flat_out_2 = Flatten()(pool_out_2)
 
-    if args.max_outer_product:
+    if args.no_product_max:
 
         pool_out = flat_out_1 + flat_out_2
 

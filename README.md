@@ -44,7 +44,7 @@ You can prepare all the dependencies just by the following commands.
       ```
 
     * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. This file must be named as [(your customized name).seq.tsv]. For example:
-   
+     
       ```txt
       line1:    protein_id_1  [Tab]  protein_1_sequence  
       line2:    protein_id_3  [Tab]  protein_2_sequence
@@ -52,8 +52,8 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command with arguments in shell:
 
     ```shell
-    python build_model.py [-h] [--dataset DATASET] [--fold_index FOLD_INDEX]
-                          [--epoch EPOCH] [--seed SEED] [--outer_product OUTER_PRODUCT]
+    python model.py [-h] [--dataset DATASET] [--fold_index FOLD_INDEX]
+                         [--epoch EPOCH] [--seed SEED] [--outer_product OUTER_PRODUCT]
     ```
     **Arguments:**
 
@@ -80,7 +80,7 @@ You can prepare all the dependencies just by the following commands.
       ```
 
     * The second protein File: It can contain multiple proteins in fasta format. For example:
-   
+     
       ```txt
       line1:    >protein_id_3
       line2:    protein_3_sequence
