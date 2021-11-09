@@ -151,3 +151,12 @@ A) Yes, you can configure conda virtual environment on your Windows PC.
 #### 3. If I am not good at using Unix software, is there any conventient way to use DeepTrio?
 
 A) Yes, you can visit our online website : http://bis.zju.edu.cn/deeptrio, where you can predicti PPIs and draw importance maps on the DeepTrio model without any configurations.
+
+# Citation
+
+If you find DeepTrio useful, please consider citing our publication:<br />
+Hu, X., Feng, C., Zhou, Y., Harrison, A., & Chen, M. (2021). DeepTrio: a ternary prediction system for protein-protein interaction using mask multiple parallel convolutional neural networks. <i>Bioinformatics</i>.
+
+# Updates
+
+2021-11-9: Revision for article: the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).
