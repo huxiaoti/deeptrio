@@ -223,7 +223,7 @@ A) Yes, you can visit our online website : http://bis.zju.edu.cn/deeptrio, where
 # Citation
 
 If you find DeepTrio useful, please consider citing our publication:<br />
-Hu, X., Feng, C., Zhou, Y., Harrison, A., & Chen, M. (2021). DeepTrio: a ternary prediction system for protein-protein interaction using mask multiple parallel convolutional neural networks. <i>Bioinformatics</i>.
+Hu, X., Feng, C., Zhou, Y., Harrison, A., & Chen, M. (2021). DeepTrio: a ternary prediction system for protein-protein interaction using mask multiple parallel convolutional neural networks. <i>Bioinformatics</i>, btab737.
 
 # Updates
 
