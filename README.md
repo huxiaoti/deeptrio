@@ -227,5 +227,5 @@ Hu, X., Feng, C., Zhou, Y., Harrison, A., & Chen, M. (2021). DeepTrio: a ternary
 
 # Updates
 
-2021-11-09: Revision for article: the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).<br />
+<b>2021-11-09: Note for article: the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).</b><br />
 2021-09-03: v1.0 - v1.1: adding an alternative function for applying max-pooling on the outer-product of two protein feature maps.
