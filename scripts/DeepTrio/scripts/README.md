@@ -34,7 +34,7 @@ You can prepare all the dependencies just by the following commands.
     7. Run `conda install -c conda-forge dotmap`
 ### Run DeepTrio for Training
 
-1. To run DeepSol on your own training data you need to prepare the following two things:
+1. To run DeepTrio on your own training data you need to prepare the following two things:
 
     * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). For example:
 
