@@ -32,6 +32,74 @@ You can prepare all the dependencies just by the following commands.
     5. Run `conda install -c conda-forge scikit-learn`
     6. Run `conda install -c conda-forge gpyopt`
     7. Run `conda install -c conda-forge dotmap`
+
+### Run DeepTrio for hyper-parameter searching and training
+
+1. To run DeepTrio on your own training data and search hyper-parameters, you need to prepare the following two things:
+
+    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). This file must be named as [(your customized name).pair.tsv]. For example:
+
+      ```txt
+      line1:    protein_id_1  [Tab]  protein_id_2  [Tab]  label
+      line2:    protein_id_3  [Tab]  protein_id_4  [Tab]  label
+      ```
+
+    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. This file must be named as [(your customized name).seq.tsv]. For example:
+     
+      ```txt
+      line1:    protein_id_1  [Tab]  protein_1_sequence  
+      line2:    protein_id_3  [Tab]  protein_2_sequence
+      ```
+      
+2. Execute command with arguments in shell:
+
+    ```shell
+    python build_model.py [-h] -p PPI -d DATABASE [-e EPOCH]
+    ```
+    **Arguments:**
+
+    |Abbreviation|Argument|Required|Description|
+    |  ----   | ----  | ----  |----  |
+    | -p  | --ppi | Yes | PPI file with its path|
+    | -d  | --database | Yes | Database file with its path|
+    | -e  | --epoch | No | The maximum number of epochs|
+    | -h  | --help | No | Help message|
+
+    ```shell
+    python build_model_fast.py [-h] -p PPI -d DATABASE -i FOLD [-e EPOCH]
+    ```
+    **Arguments:**
+
+    |Abbreviation|Argument|Required|Description|
+    |  ----   | ----  | ----  |----  |
+    | -p  | --ppi | Yes | PPI file with its path|
+    | -d  | --database | Yes | Database file with its path|
+    | -i  | --fold | Yes | The fold index in 5-fold CV (from 0 to 4)|
+    | -e  | --epoch | No | The maximum number of epochs|
+    | -h  | --help | No | Help message|
+    
+3. Select the best model according to **GpyOpt** log file:
+
+    ```txt
+    DeepTrio_search_1.h5
+    DeepTrio_search_2.h5
+    DeepTrio_search_3.h5
+    DeepTrio_search_4.h5
+    ...
+    search_log.txt
+    ```
+    * The `search_log.txt` shows the details of all the candidate models' parameters and the best model parameters.
+    
+
+    ```txt
+    result: 
+        parameter   em_dim:         15.0
+        parameter   sp_drop:        0.005
+        parameter   kernel_rate_1:  0.16
+        ...
+        evaluation: 0.9795729
+    ```
+    
 ### Run DeepTrio for Training
 
 1. To run DeepTrio on your own training data you need to prepare the following two things:
