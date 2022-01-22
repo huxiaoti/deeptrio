@@ -66,7 +66,7 @@ You can prepare all the dependencies just by the following commands.
     | -h  | --help | No | Help message|
 
 
-2. Select the best model according to **GpyOpt** log file:
+3. Select the best model according to **GpyOpt** log file:
 
     ```txt
     DeepTrio_search_1.h5
