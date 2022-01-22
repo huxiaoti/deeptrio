@@ -65,20 +65,8 @@ You can prepare all the dependencies just by the following commands.
     | -e  | --epoch | No | The maximum number of epochs|
     | -h  | --help | No | Help message|
 
-    ```shell
-    python build_model_fast.py [-h] -p PPI -d DATABASE -i FOLD [-e EPOCH]
-    ```
-    **Arguments:**
 
-    |Abbreviation|Argument|Required|Description|
-    |  ----   | ----  | ----  |----  |
-    | -p  | --ppi | Yes | PPI file with its path|
-    | -d  | --database | Yes | Database file with its path|
-    | -i  | --fold | Yes | The fold index in 5-fold CV (from 0 to 4)|
-    | -e  | --epoch | No | The maximum number of epochs|
-    | -h  | --help | No | Help message|
-    
-3. Select the best model according to **GpyOpt** log file:
+2. Select the best model according to **GpyOpt** log file:
 
     ```txt
     DeepTrio_search_1.h5
