@@ -54,7 +54,7 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command with arguments in shell:
 
     ```shell
-    python build_model.py [-h] -p PPI -d DATABASE [-e EPOCH]
+    python build_model_for_hyperparameter_search.py [-h] -p PPI -d DATABASE [-e EPOCH]
     ```
     **Arguments:**
 
