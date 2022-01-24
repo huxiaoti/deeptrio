@@ -33,7 +33,7 @@ You can prepare all the dependencies just by the following commands.
     6. Run `conda install -c conda-forge gpyopt`
     7. Run `conda install -c conda-forge dotmap`
 
-### Run DeepTrio for hyper-parameter searching and training
+### Run DeepTrio for hyper-parameter searching
 
 1. To run DeepTrio on your own training data and search hyper-parameters, you need to prepare the following two things:
 
