@@ -25,7 +25,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', type=str, required=True)
 parser.add_argument('--fold_index', type=int, default=0)
 parser.add_argument('--epoch', type=int, default=100, help='the maximum number of epochs')
-parser.add_argument('--seed', type=int, default=555)
 parser.add_argument('--outer_product', default=False, action='store_true', help='Whether apply max-pooling on outer-product of two proteins')
 
 args = parser.parse_args()
@@ -38,8 +37,29 @@ else:
 pair_file = args.dataset + '_pair.tsv'
 seq_file = args.dataset + '_seq.tsv'
 
-tf.random.set_seed(args.seed)
-np.random.seed(args.seed)
+
+em_dim=15
+sp_drop=0.005
+kernel_rate_1=0.16
+strides_rate_1=0.15
+kernel_rate_2=0.14
+strides_rate_2=0.25
+filter_num_1=150
+filter_num_2=175
+con_drop=0.05
+fn_drop_1=0.2
+fn_drop_2=0.1
+node_num=256
+opti_switch=1
+
+if opti_switch == 0:
+    adam = Adam(amsgrad = False)
+    # print('^^^^^ False ^^^^^')
+elif opti_switch == 1:
+    adam = Adam(amsgrad = True)
+    # print('^^^^^ True ^^^^^')
+else:
+    raise Exception('The format is not in a right way')
 
 x_train_1, x_train_2, y_train, single_1, single_2, single_y, fix_text = preprocess(pair_file, seq_file)
 
