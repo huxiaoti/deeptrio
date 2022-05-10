@@ -109,7 +109,7 @@ You can prepare all the dependencies just by the following commands.
 
     ```shell
     python model.py [-h] [--dataset DATASET] [--fold_index FOLD_INDEX]
-                         [--epoch EPOCH] [--seed SEED] [--outer_product OUTER_PRODUCT]
+                         [--epoch EPOCH] [--outer_product OUTER_PRODUCT]
     ```
     **Arguments:**
 
@@ -117,7 +117,6 @@ You can prepare all the dependencies just by the following commands.
     | ----  | ----  |  ----  |----  |
     | --dataset | Yes || The customized name of your dataset|
     | --fold_index | Yes |0| The fold index in 5-fold cross-validation|
-    | --seed | No |555| The seed of the model|
     | --outer_product | No |False| Whether apply max-pooling on outer-product of two proteins|
     | --epoch | No |100| The maximum number of epochs|
     | --help | No || Help message|
