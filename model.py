@@ -5,6 +5,11 @@ Created on Sat Dec  7 21:24:08 2019
 @author: zju
 """
 import os
+import warnings
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+warnings.filterwarnings("ignore")
+
 import argparse
 import numpy as np
 import pickle as pkl
@@ -20,42 +25,55 @@ from build_my_layer import MyMaskCompute, MySpatialDropout1D
 from utility import random_arr, array_split
 from input_preprocess import preprocess
 
-
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset', type=str, required=True)
+parser.add_argument('--interaction_data', type=str, required=True)
+parser.add_argument('--sequence_data', type=str, required=True)
 parser.add_argument('--fold_index', type=int, default=0)
-parser.add_argument('--epoch', type=int, default=100, help='the maximum number of epochs')
+parser.add_argument('--epoch', type=int, default=50, help='the maximum number of epochs')
 parser.add_argument('--outer_product', default=False, action='store_true', help='Whether apply max-pooling on outer-product of two proteins')
+parser.add_argument('--cuda', default=False, action='store_true', help='Whether apply GPU to train the model')
 
 args = parser.parse_args()
 
+print('\n-------------------------------------')
+print('Using the default hyper-parameters\n')
+print('You can adjust them by running build_model_for_hyperparameter_search.py\n')
+
+if args.cuda:
+    print('using GPU\n')
+else:
+    os.environ["CUDA_VISIBLE_DEVICES"] = ""
+    print('using CPU\n')
+
 if not args.outer_product:
     no_product_max = True
+    args.combining = 'Addition'
 else:
     no_product_max = False
+    args.combining = 'OuterProduct'
+    print('Using outer product for combinding')
 
-pair_file = args.dataset + '_pair.tsv'
-seq_file = args.dataset + '_seq.tsv'
+pair_file = args.interaction_data
+seq_file = args.sequence_data
 
+args.em_dim=15
+args.sp_drop=0.005
+args.kernel_rate_1=0.16
+args.strides_rate_1=0.15
+args.kernel_rate_2=0.14
+args.strides_rate_2=0.25
+args.filter_num_1=150
+args.filter_num_2=175
+args.con_drop=0.05
+args.fn_drop_1=0.2
+args.fn_drop_2=0.1
+args.node_num=256
+args.opti_switch=1
 
-em_dim=15
-sp_drop=0.005
-kernel_rate_1=0.16
-strides_rate_1=0.15
-kernel_rate_2=0.14
-strides_rate_2=0.25
-filter_num_1=150
-filter_num_2=175
-con_drop=0.05
-fn_drop_1=0.2
-fn_drop_2=0.1
-node_num=256
-opti_switch=1
-
-if opti_switch == 0:
+if args.opti_switch == 0:
     adam = Adam(amsgrad = False)
     # print('^^^^^ False ^^^^^')
-elif opti_switch == 1:
+elif args.opti_switch == 1:
     adam = Adam(amsgrad = True)
     # print('^^^^^ True ^^^^^')
 else:
@@ -119,7 +137,7 @@ for n in range(2, 35):
     flat_out_1 = Flatten()(pool_out_1)
     flat_out_2 = Flatten()(pool_out_2)
 
-    if args.no_product_max:
+    if no_product_max:
 
         pool_out = flat_out_1 + flat_out_2
 
@@ -130,9 +148,9 @@ for n in range(2, 35):
 
         pool_out = tf.matmul(flat_out_1, flat_out_2)
 
-        flat_out = 1/2 * (tf.reduce_max(pool_out, axis=1) + tf.reduce_max(pool_out, axis=2))
+        pool_out = 1/2 * (tf.reduce_max(pool_out, axis=1) + tf.reduce_max(pool_out, axis=2))
     
-    tensor.append(flat_out)
+    tensor.append(pool_out)
     
 concatenated = Concatenate()(tensor)
 
@@ -154,7 +172,7 @@ model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accurac
 acc_max = 0
 loss_min = 100
 
-file_name = 'DeepTrio_{}_{}_{}'.format(args.seed, args.fold_index, args.dataset)
+file_name = 'DeepTrio_{}_{}'.format(args.fold_index, args.combining)
 loss_values = []
 acc_values = []
 for i in range(args.epoch):
