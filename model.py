@@ -110,18 +110,18 @@ for n in range(2, 35):
     
     if n <= 15:
         conv_layer = Conv1D(filters=150,
-                            kernel_size = int(np.ceil(0.16 * n**2)),
+                            kernel_size = int(np.ceil(args.kernel_rate_1 * n**2)),
                             padding = 'valid',
                             activation = 'relu',
                             use_bias= False,
-                            strides = int(np.ceil(0.15 * (n-1))))
+                            strides = int(np.ceil(args.strides_rate_1 * (n-1))))
     else:
         conv_layer = Conv1D(filters = 175,
-                            kernel_size = int(np.ceil(0.14 * n**2)),
+                            kernel_size = int(np.ceil(args.kernel_rate_2 * n**2)),
                             padding = 'valid',
                             activation = 'relu',
                             use_bias= False,
-                            strides = int(np.ceil(0.25 * (n-1))))
+                            strides = int(np.ceil(args.strides_rate_2 * (n-1))))
     
     conv_out_1 = conv_layer(dropped_1)
     conv_out_2 = conv_layer(dropped_2)
