@@ -1,6 +1,6 @@
-## DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
+# DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
 
-![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) &#160;&#160;&#160;![](https://img.shields.io/badge/backend-tensorflow2.1-orange.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/environment-conda-blue.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/verison-1.1.0-ff69b4.svg)
+![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) &#160;&#160;&#160;![](https://img.shields.io/badge/backend-tensorflow2.1-orange.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/environment-conda-blue.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/verison-1.0.2-ff69b4.svg)
 
 
 
@@ -8,7 +8,14 @@
 
 <!-- # Motivation
 Protein-protein interaction (PPI), as a relative property, depends on two binding proteins of it, which brings a great challenge to design an expert model with unbiased learning and superior generalization performance. Additionally, few efforts have been made to grant models discriminative insights on relative properties. -->
-### Installation
+
+# Updates
+
+2022-05-11: v1.0.0 - v1.0.2: fix some BUGs in `model.py`, change the command-line parameters for inputting data<br />
+<b>2021-11-09: Note for article: the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).</b><br />
+2021-09-03: v1.0.0 - v1.0.1: adding an alternative function for applying max-pooling on the outer-product of two protein feature maps.
+
+## Installation
 
 It is recommended to install dependencies in **conda** virtual environment so that only few installation commands are required for running DeepTrio. 
 You can prepare all the dependencies just by the following commands.
@@ -32,6 +39,45 @@ You can prepare all the dependencies just by the following commands.
     5. Run `conda install -c conda-forge scikit-learn`
     6. Run `conda install -c conda-forge gpyopt`
     7. Run `conda install -c conda-forge dotmap`
+
+### Run DeepTrio for Training
+
+1. To run DeepTrio on your own training data you need to prepare the following two things:
+
+    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). ~~This file must be named as [(your customized name).pair.tsv].~~
+
+      ```txt
+      line1:    protein_id_1  [Tab]  protein_id_2  [Tab]  label
+      line2:    protein_id_3  [Tab]  protein_id_4  [Tab]  label
+      ```
+
+    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. ~~This file must be named as [(your customized name).seq.tsv].~~
+     
+      ```txt
+      line1:    protein_id_1  [Tab]  protein_1_sequence  
+      line2:    protein_id_3  [Tab]  protein_2_sequence
+      ```
+2. Execute command with arguments in shell:
+
+    ```shell
+    python model.py [-h] [--interaction_data] [--sequence_data] [--fold_index FOLD_INDEX]
+                         [--epoch EPOCH] [--outer_product OUTER_PRODUCT] [--cuda]
+    ```
+    for example:
+    ```shell
+    python model.py --interaction_data data/benchmarks/yeast\ core\ dataset\ from\ DeepFE-PPI/action_pair.tsv --sequence_data data/benchmarks/yeast\ core\ dataset\ from\ DeepFE-PPI/action_dictionary.tsv 
+    ```
+    **Arguments:**
+
+    |Argument|Required|Default|Description|
+    | ----  | ----  |  ----  |----  |
+    | --interaction_data | Yes || The customized name of your Protein-protein Interaction File with its path|
+    | --sequence_data | Yes || The customized name of your Protein Sequence Database File with its path|
+    | --fold_index | Yes |0| The fold index in 5-fold cross-validation|
+    | --outer_product | No |False| Whether apply max-pooling on outer-product of two proteins|
+    | --epoch | No |50| The maximum number of epochs|
+    | --cuda | No |False| Allow GPU to perform training process|
+    | --help | No || Help message|
 
 ### Run DeepTrio for hyper-parameter searching
 
@@ -77,7 +123,7 @@ You can prepare all the dependencies just by the following commands.
     search_log.txt
     ```
     * The `search_log.txt` shows the details of all the candidate models' parameters and the best model parameters.
-    
+    <br />
 
     ```txt
     result: 
@@ -87,40 +133,6 @@ You can prepare all the dependencies just by the following commands.
         ...
         evaluation: 0.9795729
     ```
-    
-### Run DeepTrio for Training
-
-1. To run DeepTrio on your own training data you need to prepare the following two things:
-
-    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). This file must be named as [(your customized name).pair.tsv]. For example:
-
-      ```txt
-      line1:    protein_id_1  [Tab]  protein_id_2  [Tab]  label
-      line2:    protein_id_3  [Tab]  protein_id_4  [Tab]  label
-      ```
-
-    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. This file must be named as [(your customized name).seq.tsv]. For example:
-     
-      ```txt
-      line1:    protein_id_1  [Tab]  protein_1_sequence  
-      line2:    protein_id_3  [Tab]  protein_2_sequence
-      ```
-2. Execute command with arguments in shell:
-
-    ```shell
-    python model.py [-h] [--dataset DATASET] [--fold_index FOLD_INDEX]
-                         [--epoch EPOCH] [--outer_product OUTER_PRODUCT]
-    ```
-    **Arguments:**
-
-    |Argument|Required|Default|Description|
-    | ----  | ----  |  ----  |----  |
-    | --dataset | Yes || The customized name of your dataset|
-    | --fold_index | Yes |0| The fold index in 5-fold cross-validation|
-    | --outer_product | No |False| Whether apply max-pooling on outer-product of two proteins|
-    | --epoch | No |100| The maximum number of epochs|
-    | --help | No || Help message|
-
 
 ### Run DeepTrio for Prediction
 1. To run DeepSol for prediction on your own query protein pairs you need to prepare the following three things:
@@ -209,10 +221,6 @@ A) Yes, you can visit our online website : http://bis.zju.edu.cn/deeptrio, where
 
 # Citation
 
-If you find DeepTrio useful, please consider citing our publication:<br />
+If you find DeepTrio useful, please consider citing our publication:
+
 Hu, X., Feng, C., Zhou, Y., Harrison, A., & Chen, M. (2021). DeepTrio: a ternary prediction system for protein-protein interaction using mask multiple parallel convolutional neural networks. <i>Bioinformatics</i>, btab737.
-
-# Updates
-
-<b>2021-11-09: Note for article: the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).</b><br />
-2021-09-03: v1.0 - v1.1: adding an alternative function for applying max-pooling on the outer-product of two protein feature maps.
