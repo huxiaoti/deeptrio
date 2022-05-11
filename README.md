@@ -9,9 +9,9 @@
 <!-- # Motivation
 Protein-protein interaction (PPI), as a relative property, depends on two binding proteins of it, which brings a great challenge to design an expert model with unbiased learning and superior generalization performance. Additionally, few efforts have been made to grant models discriminative insights on relative properties. -->
 
-# Updates
+## Updates
 
-2022-05-11: v1.0.0 - v1.0.2: fix some BUGs in `model.py`, change the command-line parameters for inputting data<br />
+2022-05-11: v1.0.0 - v1.0.2: fix some BUGs in `model.py`, change the command-line parameters for inputting data.<br />
 <b>2021-11-09: Note for article: the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).</b><br />
 2021-09-03: v1.0.0 - v1.0.1: adding an alternative function for applying max-pooling on the outer-product of two protein feature maps.
 
