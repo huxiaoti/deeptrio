@@ -73,7 +73,7 @@ You can prepare all the dependencies just by the following commands.
     | ----  | ----  |  ----  |----  |
     | --interaction_data | Yes || The customized name of your Protein-protein Interaction File with its path|
     | --sequence_data | Yes || The customized name of your Protein Sequence Database File with its path|
-    | --fold_index | Yes |0| The fold index in 5-fold cross-validation|
+    | --fold_index | No |0| The fold index in 5-fold cross-validation|
     | --outer_product | No |False| Whether apply max-pooling on outer-product of two proteins|
     | --epoch | No |50| The maximum number of epochs|
     | --cuda | No |False| Allow GPU to perform training process|
