@@ -1,4 +1,4 @@
-# DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
+## DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
 
 ![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) &#160;&#160;&#160;![](https://img.shields.io/badge/backend-tensorflow2.1-orange.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/environment-conda-blue.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/verison-1.0.2-ff69b4.svg)
 
