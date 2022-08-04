@@ -15,6 +15,10 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 <b>2021-11-09: Note for article: the title of Section 2.2.1 should be 'Protein sequence representation', and the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).</b><br />
 2021-09-03: v1.0.0 - v1.0.1: adding an alternative function for applying max-pooling on the outer-product of two protein feature maps.
 
+## Overview
+
+![alt text](data/framework.svg "framework")
+
 ## Installation
 
 It is recommended to install dependencies in **conda** virtual environment so that only few installation commands are required for running DeepTrio. 
