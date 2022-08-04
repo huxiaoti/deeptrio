@@ -17,7 +17,7 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 
 ## Overview
 
-![alt text](data/framework.svg "framework")
+![alt text](data/framework.svg)
 
 ## Installation
 
