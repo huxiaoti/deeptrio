@@ -11,7 +11,7 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 
 ## Updates
 
-2022-11-09: v1.0.2 - v1.0.3: fix some BUGs in `build_model_for_hyperparameter_search.py`, and change the command-line parameters for inputting data. `model.py` is renamed as 'build_model.py'<br />
+2022-11-09: v1.0.2 - v1.0.3: fix some BUGs in `build_model_for_hyperparameter_search.py`, and change the command-line parameters for inputting data. `model.py` is renamed as `build_model.py`<br />
 2022-05-11: v1.0.1 - v1.0.2: fix some BUGs in `model.py`, and change the command-line parameters for inputting data.<br />
 <b>2021-11-09: Note for article: the title of Section 2.2.1 should be 'Protein sequence representation', and the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).</b><br />
 2021-09-03: v1.0.0 - v1.0.1: adding an alternative function for applying max-pooling on the outer-product of two protein feature maps.
@@ -65,12 +65,12 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command with arguments in shell:
 
     ```shell
-    python model.py [-h] [--interaction_data INTERACTION_DATA] [--sequence_data SEQUENCE_DATA] [--fold_index FOLD_INDEX]
+    python build_model.py [-h] [--interaction_data INTERACTION_DATA] [--sequence_data SEQUENCE_DATA] [--fold_index FOLD_INDEX]
                          [--epoch EPOCH] [--outer_product OUTER_PRODUCT] [--cuda]
     ```
     for example:
     ```shell
-    python model.py --interaction_data data/benchmarks/yeast\ core\ dataset\ from\ DeepFE-PPI/action_pair.tsv --sequence_data data/benchmarks/yeast\ core\ dataset\ from\ DeepFE-PPI/action_dictionary.tsv 
+    python build_model.py --interaction_data data/benchmarks/yeast\ core\ dataset\ from\ DeepFE-PPI/action_pair.tsv --sequence_data data/benchmarks/yeast\ core\ dataset\ from\ DeepFE-PPI/action_dictionary.tsv
     ```
     **Arguments:**
 
@@ -108,6 +108,11 @@ You can prepare all the dependencies just by the following commands.
     python build_model_for_hyperparameter_search.py [-h] [--interaction_data INTERACTION_DATA] [--sequence_data SEQUENCE_DATA]
                                                     [--epoch EPOCH] [--outer_product OUTER_PRODUCT] [--cuda]
     ```
+    for example:
+    ```shell
+    python build_model_for_hyperparameter_search.py --interaction_data data/benchmarks/yeast\ core\ dataset\ from\ DeepFE-PPI/action_pair.tsv --sequence_data data/benchmarks/yeast\ core\ dataset\ from\ DeepFE-PPI/action_dictionary.tsv --cuda
+    ```
+    
     **Arguments:**
 
     |Argument|Required|Default|Description|
