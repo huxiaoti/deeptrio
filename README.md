@@ -11,7 +11,8 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 
 ## Updates
 
-2022-05-11: v1.0.1 - v1.0.2: fix some BUGs in `model.py`, change the command-line parameters for inputting data.<br />
+2022-05-11: v1.0.2 - v1.0.3: fix some BUGs in `build_model_for_hyperparameter_search.py`, and change the command-line parameters for inputting data. `model.py` is renamed as 'build_model.py'<br />
+2022-05-11: v1.0.1 - v1.0.2: fix some BUGs in `model.py`, and change the command-line parameters for inputting data.<br />
 <b>2021-11-09: Note for article: the title of Section 2.2.1 should be 'Protein sequence representation', and the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).</b><br />
 2021-09-03: v1.0.0 - v1.0.1: adding an alternative function for applying max-pooling on the outer-product of two protein feature maps.
 
@@ -64,7 +65,7 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command with arguments in shell:
 
     ```shell
-    python model.py [-h] [--interaction_data] [--sequence_data] [--fold_index FOLD_INDEX]
+    python model.py [-h] [--interaction_data INTERACTION_DATA] [--sequence_data SEQUENCE_DATA] [--fold_index FOLD_INDEX]
                          [--epoch EPOCH] [--outer_product OUTER_PRODUCT] [--cuda]
     ```
     for example:
@@ -87,14 +88,14 @@ You can prepare all the dependencies just by the following commands.
 
 1. To run DeepTrio on your own training data and search hyper-parameters, you need to prepare the following two things:
 
-    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). This file must be named as [(your customized name).pair.tsv]. For example:
+    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). ~~This file must be named as [(your customized name).pair.tsv]. For example:~~
 
       ```txt
       line1:    protein_id_1  [Tab]  protein_id_2  [Tab]  label
       line2:    protein_id_3  [Tab]  protein_id_4  [Tab]  label
       ```
 
-    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. This file must be named as [(your customized name).seq.tsv]. For example:
+    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. ~~This file must be named as [(your customized name).seq.tsv]. For example:~~
      
       ```txt
       line1:    protein_id_1  [Tab]  protein_1_sequence  
@@ -104,16 +105,18 @@ You can prepare all the dependencies just by the following commands.
 2. Execute command with arguments in shell:
 
     ```shell
-    python build_model_for_hyperparameter_search.py [-h] -p PPI -d DATABASE [-e EPOCH]
+    python build_model_for_hyperparameter_search.py [-h] [--interaction_data INTERACTION_DATA] [--sequence_data SEQUENCE_DATA]
+                                                    [--epoch EPOCH] [--outer_product OUTER_PRODUCT] [--cuda]
     ```
     **Arguments:**
 
-    |Abbreviation|Argument|Required|Description|
-    |  ----   | ----  | ----  |----  |
-    | -p  | --ppi | Yes | PPI file with its path|
-    | -d  | --database | Yes | Database file with its path|
-    | -e  | --epoch | No | The maximum number of epochs|
-    | -h  | --help | No | Help message|
+    |Argument|Required|Default|Description|
+    | ----  | ----  |  ----  |----  |
+    | --interaction_data | Yes || The customized name of your Protein-protein Interaction File with its path|
+    | --sequence_data | Yes || The customized name of your Protein Sequence Database File with its path|
+    | --epoch | No |100| The maximum number of epochs|
+    | --cuda | No |False| Allow GPU to perform training process|
+    | --help | No || Help message|
 
 
 3. Select the best model according to **GpyOpt** log file:
@@ -139,7 +142,7 @@ You can prepare all the dependencies just by the following commands.
     ```
 
 ### Run DeepTrio for Prediction
-1. To run DeepSol for prediction on your own query protein pairs you need to prepare the following three things:
+1. To run DeepTrio for prediction on your own query protein pairs you need to prepare the following three things:
 
     * The first protein File: It can contain multiple proteins in fasta format. For example:
 
