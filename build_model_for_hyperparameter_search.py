@@ -25,27 +25,35 @@ warnings.filterwarnings("ignore")
 
 
 parser = argparse.ArgumentParser(description='train DeepTrio')
-parser.add_argument('-p', '--ppi', required=True, type=str, help='configuration of the PPI file, which contains the protein 1 id, protein 2 id and the class they belong to, and they are splited by table key')
-parser.add_argument('-d', '--database', required=True, type=str, help='configuration of the protein sequence database, which contains the protein id and its sequence, and they are splited by table key')
+parser.add_argument('--interaction_data', required=True, type=str, help='configuration of the PPI file, which contains the protein 1 id, protein 2 id and the class they belong to, and they are splited by table key')
+parser.add_argument('--sequence_data', required=True, type=str, help='configuration of the protein sequence database, which contains the protein id and its sequence, and they are splited by table key')
 parser.add_argument('-e', '--epoch', default='100', type=str, help='the maximum number of epochs')
+parser.add_argument('--cuda', default=False, action='store_true', help='Whether apply GPU to train the model')
 
 static_args = parser.parse_args()
-file_1_path = static_args.ppi
-file_2_path = static_args.database
+file_1_path = static_args.interaction_data
+file_2_path = static_args.sequence_data
 epoch_number = int(static_args.epoch)
+
+if static_args.cuda:
+    print('using GPU\n')
+else:
+    os.environ["CUDA_VISIBLE_DEVICES"] = ""
+    print('using CPU\n')
 
 print('\nWelcome to use our tool')
 print('\nVersion: 1.0.0')
 print('\nAny problem, please contact mchen@zju.edu.cn')
 print('\nStart to process the raw data')
 
-x_train_1, x_train_2, y_train, single_1, single_2, single_y = preprocess(file_1_path, file_2_path)
+x_train_1, x_train_2, y_train, single_1, single_2, single_y, fix_text = preprocess(file_1_path, file_2_path)
 
 random_arr(x_train_1)
 random_arr(x_train_2)
 random_arr(y_train)
+random_arr(fix_text)
 
-x_1, x_2, y_train, v_1, v_2, v_y = array_split(10, x_train_1, x_train_2, y_train, single_1, single_2, single_y)
+x_1, x_2, y_train, v_1, v_2, v_y, h_train, h_validation = array_split(10, x_train_1, x_train_2, y_train, single_1, single_2, single_y, fix_text)
 
 print('\nStart to train DeepTrio model')
 print('\nAfter training, you may select the best model manually according to the recording file')
