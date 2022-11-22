@@ -49,7 +49,7 @@ You can prepare all the dependencies just by the following commands.
 
 1. To run DeepTrio on your own training data you need to prepare the following two things:
 
-    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', and 0 for 'non-interacting'). ~~This file must be named as [(your customized name).pair.tsv].~~
+    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, along with their label (1 for 'interacting', and 0 for 'non-interacting'). ~~This file must be named as [(your customized name).pair.tsv].~~
 
       ```txt
       line1:    protein_id_1  [Tab]  protein_id_2  [Tab]  label
