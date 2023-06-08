@@ -1,6 +1,6 @@
 ## DeepTrio: a ternary prediction system for protein–protein interaction using mask multiple parallel convolutional neural networks
 
-![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) &#160;&#160;&#160;![](https://img.shields.io/badge/backend-tensorflow2.1-orange.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/environment-conda-blue.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/verison-1.0.2-ff69b4.svg)
+![](https://img.shields.io/badge/language-python3.7-brightgreen.svg) &#160;&#160;&#160;![](https://img.shields.io/badge/backend-tensorflow2.1-orange.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/environment-conda-blue.svg)&#160;&#160;&#160; ![](https://img.shields.io/badge/verison-1.0.4-ff69b4.svg)
 
 
 
@@ -11,6 +11,7 @@ Protein-protein interaction (PPI), as a relative property, depends on two bindin
 
 ## Updates
 
+2023-06-08: v1.0.3 - v1.0.4: fix BUG in `main.py`, which clarifies the probability type of model output.<br />
 2022-11-09: v1.0.2 - v1.0.3: fix some BUGs in `build_model_for_hyperparameter_search.py`, and change the command-line parameters for inputting data. `model.py` is renamed as `build_model.py`<br />
 2022-05-11: v1.0.1 - v1.0.2: fix some BUGs in `model.py`, and change the command-line parameters for inputting data.<br />
 <b>2021-11-09: Note for article: the title of Section 2.2.1 should be 'Protein sequence representation', and the reference in the footnote of Table 4 should be Chen <i>et al</i>. (2019).</b><br />
