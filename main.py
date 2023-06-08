@@ -128,7 +128,7 @@ with open(file_output, 'w') as w:
     for n in range(len(predictions_test)):
         output_data[group_name[n]] = {}
         # output_data[group_name[n]]['model'] = static_args.model
-        output_data[group_name[n]]['probability'] = str(predictions_test[n][0])
+        output_data[group_name[n]]['binding_probability'] = str(predictions_test[n][0])
         if predictions_test[n][0] >= 0.5:
             output_data[group_name[n]]['result'] = 'binding'
         elif predictions_test[n][2] >= 0.5:
