@@ -40,7 +40,7 @@ You can prepare all the dependencies just by the following commands.
 
     1. Run `conda create -n [your env name] python=3.7`
     2. Run `conda activate [your env name]`
-    3. Run `conda install tensorflow-gpu==2.1`
+    3. Run `conda install tensorflow-gpu=2.1`
     4. Run `conda install seaborn`
     5. Run `conda install -c conda-forge scikit-learn`
     6. Run `conda install -c conda-forge gpyopt`
