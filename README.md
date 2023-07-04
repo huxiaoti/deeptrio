@@ -40,7 +40,8 @@ You can prepare all the dependencies just by the following commands.
 
     1. Run `conda create -n [your env name] python=3.7`
     2. Run `conda activate [your env name]`
-    3. Run `conda install tensorflow-gpu=2.1`
+    3. Run `conda install tensorflow-gpu=2.1`  
+       **WARNING: TensorFlow < 2.6.0 may have worse performance in the latest GPU like A100, and it is recommended to use pip3 to install the latest TensorFlow2 e.g. 2.12.0)**
     4. Run `conda install seaborn`
     5. Run `conda install -c conda-forge scikit-learn`
     6. Run `conda install -c conda-forge gpyopt`
@@ -50,14 +51,14 @@ You can prepare all the dependencies just by the following commands.
 
 1. To run DeepTrio on your own training data you need to prepare the following two things:
 
-    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, along with their label (1 for 'interacting', and 0 for 'non-interacting'). ~~This file must be named as [(your customized name).pair.tsv].~~
+    * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, along with their label (1 for 'interacting', and 0 for 'non-interacting'). 
 
       ```txt
       line1:    protein_id_1  [Tab]  protein_id_2  [Tab]  label
       line2:    protein_id_3  [Tab]  protein_id_4  [Tab]  label
       ```
 
-    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. ~~This file must be named as [(your customized name).seq.tsv].~~
+    * Protein Sequence Database File: A file containing protein IDs and their sequences in fasta format, which are separated by the **Tab** key. 
      
       ```txt
       line1:    protein_id_1  [Tab]  protein_1_sequence  
