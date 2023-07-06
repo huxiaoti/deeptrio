@@ -40,12 +40,14 @@ You can prepare all the dependencies just by the following commands.
 
     1. Run `conda create -n [your env name] python=3.7`
     2. Run `conda activate [your env name]`
-    3. Run `conda install tensorflow-gpu=2.1`  
-       **WARNING: TensorFlow < 2.6.0 may have worse performance in the latest GPU like A100, and it is recommended to use pip3 to install the latest TensorFlow2 e.g. 2.12.0)**
-    4. Run `conda install seaborn`
-    5. Run `conda install -c conda-forge scikit-learn`
-    6. Run `conda install -c conda-forge gpyopt`
-    7. Run `conda install -c conda-forge dotmap`
+    3. Run `pip install --upgrade pip`
+    4. ~~Run conda install tensorflow-gpu=2.1~~  
+       Run `pip install --upgrade tensorflow`  
+       **WARNING: Using TensorFlow < 2.6.0 may have worse performance with the latest GPU like A100, and it is recommended to use pip to install the latest TensorFlow e.g. 2.12.0)**
+    5. Run `conda install seaborn`
+    6. Run `conda install -c conda-forge scikit-learn`
+    7. Run `conda install -c conda-forge gpyopt`
+    8. Run `conda install -c conda-forge dotmap`
 
 ### Run DeepTrio for Training
 
