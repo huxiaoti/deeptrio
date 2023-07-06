@@ -90,6 +90,7 @@ You can prepare all the dependencies just by the following commands.
 
 ### Run DeepTrio for hyper-parameter searching
 
+> WARNING: If you only want to train and predict with DeepTrio, it is not recommended to run the hyper-parameter searching program.
 1. To run DeepTrio on your own training data and search hyper-parameters, you need to prepare the following two things:
 
     * Protein-protein Interaction File: A pure protein ID file, in which two protein IDs are separated by the **Tab** key, alonge with their label (1 for 'interacting', 0 for 'non-interacting' and 2 for 'single protein'). ~~This file must be named as [(your customized name).pair.tsv]. For example:~~
