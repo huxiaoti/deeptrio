@@ -42,8 +42,8 @@ You can prepare all the dependencies just by the following commands.
     2. Run `conda activate [your env name]`
     3. Run `pip install --upgrade pip`
     4. ~~Run conda install tensorflow-gpu=2.1~~  
-       Run `pip install --upgrade tensorflow`  
-       **WARNING: Using TensorFlow < 2.6.0 may have worse performance with the latest GPU like A100, and it is recommended to use pip to install the latest TensorFlow e.g. 2.12.0)**
+       **WARNING: Using TensorFlow < 2.6.0 may have worse performance with the latest GPU like A100, and it is recommended to use pip to install the latest TensorFlow e.g. 2.12.0)**  
+       Run `pip install --upgrade tensorflow`
     5. Run `conda install seaborn`
     6. Run `conda install -c conda-forge scikit-learn`
     7. Run `conda install -c conda-forge gpyopt`
