@@ -195,7 +195,7 @@ You can prepare all the dependencies just by the following commands.
     | -h  | --help | No | Help message|
 
 ### Run DeepTrio for Visualization
-1. To run DeepSol for visualization on your own query protein pairs you need to prepare the following three things:
+1. To run DeepTrio for visualization on your own query protein pairs you need to prepare the following three things:
 
     * The first protein File: which must contain only one protein in fasta format. For example:
 
